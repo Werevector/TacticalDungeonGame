@@ -4,30 +4,31 @@
 #include "Actor.h"
 #include "ActorFactory.h"
 #include "SDLGameWindow.h"
+#include "GameMap.h"
 
 class GameLogic {
 
 public:
+
+	GameLogic() {};
 
 	bool Init();
 	bool InitTestVersion();
 	
 	void Run();
 
-	SDL_Renderer*	renderHandle;
-	SDL_Window*		windowHandle;
-
 private:
-
-	std::map<unsigned int, Actor> actor_map;
 	bool LoadAndAddActor(std::string filepath);
+	void Update(int framedelta);
+	void HandleWindowEvents();
+
+	std::map<unsigned int, Actor> actors;
+	
 	ActorFactory actorFactory;
 	SDL_Event* event;
 	SDLGameWindow gameWindow;
-	void Update(int framedelta);
-
-	void HandleWindowEvents();
-
+	
+	GameMap gameMap;
 
 	bool quit = false;
 

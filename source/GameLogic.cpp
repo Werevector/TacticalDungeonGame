@@ -7,6 +7,7 @@ bool GameLogic::Init()
 
 bool GameLogic::InitTestVersion()
 {
+
 	gameWindow.Init();
 	gameWindow.flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
 	gameWindow.CreateGameWindowAndRenderer();
@@ -14,16 +15,17 @@ bool GameLogic::InitTestVersion()
 	actorFactory.renderHandle = gameWindow.renderHandle;
 
 	event = new SDL_Event();
-	
-	std::string basepath = "F:\\Programming\\C++\\Git\\ActorSystem\\resources\\actors\\";
-	LoadAndAddActor(basepath + "actor.json");
+
+	//LoadAndAddActor(basepathActors + "actor.json");
+
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "platforms.tmx");
 
 	return true;
 }
 
 void GameLogic::Update(int framedelta)
 {
-	for(auto& actor : actor_map)
+	for(auto& actor : actors)
 	{
 		actor.second.Update(framedelta);
 	}
@@ -53,7 +55,7 @@ bool GameLogic::LoadAndAddActor(std::string filepath)
 	bool success = true;
 
 	Actor actor = actorFactory.CreateActorFromFile(filepath);
-	actor_map.emplace(actor.GetActorId(), actor);
+	actors.emplace(actor.GetActorId(), actor);
 
 	return success;
 }
