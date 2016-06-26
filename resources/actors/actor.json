@@ -1,0 +1,21 @@
+{
+    "components": {
+    "PrimitiveRenderComponent": {
+      "component_type": "PrimitiveRenderComponent",
+
+      "color": {
+        "R": 250,
+        "G": 0,
+        "B": 100
+
+      },
+
+      "target": {
+        "X": 200,
+        "Y": 200,
+        "W": 100,
+        "H": 30
+      }
+    }
+  }
+}
