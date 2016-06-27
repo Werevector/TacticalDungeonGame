@@ -1,6 +1,7 @@
 #pragma once
 #include "sdl.h"
 #include <iostream>
+#include "sdl_image.h"
 class SDLGameWindow {
 
 public:

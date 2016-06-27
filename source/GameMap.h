@@ -12,31 +12,30 @@ class GameMap {
 public:
 
 	GameMap() {}
+	~GameMap() {}
 
 	bool LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path);
+	void RenderMap(SDL_Renderer* renderHandle);
 
 private:
 
 	std::string loadXMLString(std::string path);
 	NLTmxMap* loadTmxMap(std::string path);
-	std::vector<TileSet> loadTileSets(SDL_Renderer* renderHandle, std::vector<NLTmxMapTileset*> tilesets);
+	void loadTileSets(SDL_Renderer* renderHandle, std::vector<NLTmxMapTileset*> tilesets);
+	int findTilesetIndex(int key);
 
+	std::vector<TileSet*> tileSets;
+	std::vector<int> tileSetFirstIdLookup;
 
+	NLTmxMap* map;
 
-
-	std::vector<TileSet> tileSets;
-	TileSet mapTileSet;
-	
-	int mapWidth;
-	int mapHeight;
 	int mapWidthPx;
 	int mapHeightPx;
-
-	int tileWidth;
-	int tileHeight;
 
 	int NrOfTilesInLayer;
 
 	int NrOfLayers;
+
+	SDLTexture testTex;
 
 };

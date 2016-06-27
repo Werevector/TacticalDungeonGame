@@ -11,6 +11,14 @@ bool SDLGameWindow::Init()
 
 	bool success = true;
 	SDL_Init(SDL_INIT_EVERYTHING);
+	
+	//Initialize PNG loading 
+	int imgFlags = IMG_INIT_PNG; 
+	if( !( IMG_Init( imgFlags ) & imgFlags ) ) { 
+		printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+		success = false; 
+	}
+
 	return success;
 }
 
@@ -24,7 +32,7 @@ bool SDLGameWindow::CreateGameWindowAndRenderer()
 			windowMetrics.h,
 			flags);
 
-	renderHandle = SDL_CreateRenderer(windowHandle, -1, SDL_RENDERER_ACCELERATED);
+	renderHandle = SDL_CreateRenderer(windowHandle, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 	return true;
 }
 

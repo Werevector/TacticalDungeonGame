@@ -16,9 +16,7 @@ public:
 		SDL_Renderer* renderer,
 		std::string path,
 		int tileWidthPx,
-		int tileHeightPx,
-		int tileNrX,
-		int tileNrY);
+		int tileHeightPx);
 
 	bool LoadTileSetFromFile(SDL_Renderer* renderer, std::string path, std::string metaDataPath);
 
@@ -31,6 +29,8 @@ public:
 		double angle,
 		SDL_RendererFlip flip);
 
+	std::string GetName() { return name; }
+	int GetFirstId() { return firstId; }
 	void SetName(std::string n) { name = n; }
 	void SetfirstId(int i) { firstId = i; }
 
@@ -44,5 +44,7 @@ private:
 
 	int tileWidth;
 	int tileHeight;
+	int tileNrX;
+	int tileNrY;
 
 };

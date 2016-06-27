@@ -85,7 +85,11 @@ void SDLTexture::RenderTexture(SDL_Renderer * gRenderer, int x, int y, SDL_Rect 
 		renderQuad.h = dstnrect->h;
 	}
 
-	//Render to screen
+	//Render the outline of the target
+	/*SDL_SetRenderDrawColor(gRenderer, 0xFF, 0, 0, 0xFF);
+	SDL_RenderDrawRect(gRenderer, &renderQuad);*/
+	
+	
 	SDL_RenderCopyEx(gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 

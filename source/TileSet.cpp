@@ -8,13 +8,13 @@ TileSet::TileSet(std::string n, int first)
 
 TileSet::~TileSet()
 {
-	for (SDL_Rect* r : sheetClips) {
+	/*for (SDL_Rect* r : sheetClips) {
 		delete r;
-	}
+	}*/
 	textureSheet.FreeTexture();
 }
 
-bool TileSet::LoadTileSetFromFile(SDL_Renderer* renderer, std::string path, int tileWidthPx, int tileHeightPx, int tileNrX, int tileNrY)
+bool TileSet::LoadTileSetFromFile(SDL_Renderer* renderer, std::string path, int tileWidthPx, int tileHeightPx)
 {
 	bool success = true;
 
@@ -22,6 +22,9 @@ bool TileSet::LoadTileSetFromFile(SDL_Renderer* renderer, std::string path, int 
 	{
 		tileWidth = tileWidthPx;
 		tileHeight = tileHeightPx;
+
+		tileNrX = textureSheet.getWidth() / tileWidth;
+		tileNrY = textureSheet.getHeight() / tileHeight;
 
 		for (int y = 0; y < tileNrY; y++)
 		{
@@ -32,6 +35,7 @@ bool TileSet::LoadTileSetFromFile(SDL_Renderer* renderer, std::string path, int 
 				clip->y = y * tileHeightPx;
 				clip->w = tileWidthPx;
 				clip->h = tileHeightPx;
+				sheetClips.push_back(clip);
 			}
 		}
 	}
@@ -71,7 +75,7 @@ void TileSet::RenderFromSheet(SDL_Renderer * renderer, int x, int y, int key, SD
 		y,
 		clip,
 		target,
-		angle,
+		NULL,
 		NULL,
 		flip
 		);

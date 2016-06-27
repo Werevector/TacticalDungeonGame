@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="left-down" width="10" height="10" tilewidth="64" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="iso-64x64-building_2" tilewidth="64" tileheight="64">
+  <image source="../tilesets/iso-64x64-building_2.png" width="640" height="512"/>
+ </tileset>
+ <tileset firstgid="81" name="iso-64x64-outside" tilewidth="64" tileheight="64">
+  <image source="../tilesets/iso-64x64-outside.png" width="640" height="1024"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,203,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,205,206,0,0,0,0,0,0,213,
+195,82,82,0,0,0,82,82,82,82,
+195,82,82,82,1,1,1,1,56,82,
+195,82,82,82,1,1,1,1,56,82,
+192,82,82,29,1,1,1,1,56,82,
+169,167,82,173,55,55,55,55,60,82,
+162,162,172,171,82,82,82,82,82,82,
+196,82,82,82,82,82,82,82,82,82
+</data>
+ </layer>
+</map>
