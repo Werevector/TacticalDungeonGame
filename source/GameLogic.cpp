@@ -9,10 +9,10 @@ bool GameLogic::InitTestVersion()
 {
 
 	gameWindow.Init();
-	gameWindow.windowMetrics.x = 0;
-	gameWindow.windowMetrics.y = 25;
-	gameWindow.windowMetrics.w = 1900;
-	gameWindow.windowMetrics.h = 1000;
+	gameWindow.windowMetrics.x = 100;
+	gameWindow.windowMetrics.y = 200;
+	gameWindow.windowMetrics.w = 800;
+	gameWindow.windowMetrics.h = 600;
 	gameWindow.windowTitle = "Dungeons n stuff !";
 	gameWindow.flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
 	gameWindow.CreateGameWindowAndRenderer();
@@ -23,7 +23,7 @@ bool GameLogic::InitTestVersion()
 
 	//LoadAndAddActor(basepathActors + "actor.json");
 
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "house.tmx");
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "multilayerset.tmx");
 
 	return true;
 }
