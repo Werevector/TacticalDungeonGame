@@ -8,9 +8,6 @@ TileSet::TileSet(std::string n, int first)
 
 TileSet::~TileSet()
 {
-	/*for (SDL_Rect* r : sheetClips) {
-		delete r;
-	}*/
 	textureSheet.FreeTexture();
 }
 

@@ -13,15 +13,6 @@ bool GameMap::LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path)
 
 	NrOfLayers = map->layers.size();
 
-	/*for (int i = 0; i < NrOfTilesInLayer; i++) 
-	{
-		std::cout << map->layers[0]->data[i];
-		if ((i / map->width > 9))
-		{
-			std::cout << std::endl;
-		}
-	}*/
-
 	loadTileSets(renderHandle, map->tilesets);
 
 	//testTex.LoadFromImgFile(renderHandle, paths::PathTilesets() + "yes.PNG");
@@ -41,18 +32,6 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle)
 	target.w = 64;
 	target.h = 64;
 
-	SDL_Rect tes;
-	tes.x = 0;
-	tes.y = 0;
-	tes.w = 500;
-	tes.h = 500;
-
-	SDL_Rect tar;
-	tar.x = 0;
-	tar.y = 0;
-	tar.w = 500;
-	tar.h = 500;
-
 	for (int layer = 0; layer < map->layers.size(); layer++) 
 	{
 		for (int tile = 0; tile < NrOfTilesInLayer; tile++) 
@@ -61,9 +40,9 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle)
 			if (map->layers[layer]->data[tile] != 0) {
 				key = map->layers[layer]->data[tile] - 1;
 
-				//Needed because of the structure of the tilesets
-				//when using multiple tilesets in the same map
-				//should be reworked
+				//Finding correct index is needed because of the structure of the tilesets
+				//when using multiple tilesets in the same map.
+				//Should be reworked
 				tilesetIndex = findTilesetIndex(key);
 				if (tilesetIndex != 0) {
 					key -= tileSets[tilesetIndex]->GetFirstId()-1;
@@ -71,17 +50,21 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle)
 				
 
 				//TODO:: - Rendering in the Texture class uses the target rectangle in a redundant way
-				//       - A whole SDL_Rect is not required.
+				//         A whole SDL_Rect is not required.
 				//
 				//		 - Tile dimensions are different for texture, and map tiles, this should be clearer
 
-				int tx = tile / map->width;
-				int ty = tile % map->height;
 
-				x = (ty - tx) * (map->tileWidth / 2);
-				y = (ty + tx) * (map->tileHeight / 2);
+				//Orthographic coordinates
+				int Ortho_x = tile / map->width;
+				int Ortho_y = tile % map->height;
+
+				//Convert to isometric coordinates
+				//TODO: Make a function for this
+				x = (Ortho_y - Ortho_x) * (map->tileWidth / 2);
+				y = (Ortho_y + Ortho_x) * (map->tileHeight / 2);
 				
-				//A hack to center the map
+				//A stupid hack to center the map
 				x += mapWidthPx/2;
 				y += 100;
 				
@@ -114,7 +97,6 @@ std::string GameMap::loadXMLString(std::string path)
 
 NLTmxMap * GameMap::loadTmxMap(std::string path)
 {
-	//the pointer to the xml file
 	std::string xmlString = loadXMLString(path);
 
 	if (xmlString == "") return false;
@@ -147,6 +129,7 @@ void GameMap::loadTileSets(SDL_Renderer* renderHandle, std::vector<NLTmxMapTiles
 	}
 }
 
+//Find the corresponding tileset to the key
 int GameMap::findTilesetIndex(int key)
 {
 	int index = 0;
