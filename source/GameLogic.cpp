@@ -21,7 +21,7 @@ bool GameLogic::InitTestVersion()
 
 	//LoadAndAddActor(basepathActors + "actor.json");
 
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "multiset.tmx");
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "multilayerset.tmx");
 
 	return true;
 }
