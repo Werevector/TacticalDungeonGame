@@ -78,11 +78,9 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle)
 				int tx = tile / map->width;
 				int ty = tile % map->height;
 
-				//x = (tx - ty) * (map->tileWidth / 2);
-				//y = (tx + ty) * (map->tileHeight / 2);
-
 				x = (ty - tx) * (map->tileWidth / 2);
 				y = (ty + tx) * (map->tileHeight / 2);
+				
 				//A hack to center the map
 				x += mapWidthPx/2;
 				y += 100;
