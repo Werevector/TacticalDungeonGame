@@ -5,6 +5,7 @@
 #include "ActorFactory.h"
 #include "SDLGameWindow.h"
 #include "GameMap.h"
+#include "Camera.h"
 
 class GameLogic {
 
@@ -29,6 +30,8 @@ private:
 	SDLGameWindow gameWindow;
 	
 	GameMap gameMap;
+
+	Camera mGameCamera;
 
 	bool quit = false;
 

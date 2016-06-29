@@ -17,13 +17,17 @@ bool GameLogic::InitTestVersion()
 	gameWindow.flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
 	gameWindow.CreateGameWindowAndRenderer();
 	gameWindow.versionPrint();
+	
 	actorFactory.renderHandle = gameWindow.renderHandle;
+
+	mGameCamera.mCameraWidth = 800;
+	mGameCamera.mCameraHeight = 600;
 
 	event = new SDL_Event();
 
 	//LoadAndAddActor(basepathActors + "actor.json");
 
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "multilayerset.tmx");
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "empty.tmx");
 
 	return true;
 }
@@ -34,7 +38,7 @@ void GameLogic::Update(int framedelta)
 	{
 		actor.second.Update(framedelta);
 	}
-	gameMap.RenderMap(gameWindow.renderHandle);
+	gameMap.RenderMap(gameWindow.renderHandle, &mGameCamera.GetCameraAsRect());
 }
 
 void GameLogic::Run()

@@ -51,6 +51,11 @@ void SDLGameWindow::SwapBuffer()
 	SDL_RenderPresent(renderHandle);
 }
 
+SDL_Rect* SDLGameWindow::getWindowMetrics()
+{
+	return &windowMetrics;
+}
+
 void SDLGameWindow::versionPrint()
 {
 	SDL_version compiled;

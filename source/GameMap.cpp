@@ -4,41 +4,42 @@ bool GameMap::LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path)
 {
 	bool success = true;
 
-	map = loadTmxMap(path);
+	loadTmxMap(path);
 
-	NrOfTilesInLayer = map->width * map->height;
+	NrOfTilesInLayer = map.mWidth * map.mHeight;
 
-	mapWidthPx = map->width * map->tileWidth;
-	mapHeightPx = map->height * map->tileHeight;
+	mapWidthPx = map.mWidth * map.mTileWidth;
+	mapHeightPx = map.mHeight * map.mTileHeight;
 
-	NrOfLayers = map->layers.size();
+	NrOfLayers = map.mLayers.size();
 
-	loadTileSets(renderHandle, map->tilesets);
+	loadTileSets(renderHandle, map.mTilesets);
 
-	//testTex.LoadFromImgFile(renderHandle, paths::PathTilesets() + "yes.PNG");
 	testTex.LoadFromImgFile(renderHandle, paths::PathTilesets() + "iso-64x64-building_2" + ".png");
 	return success;
 }
 
-void GameMap::RenderMap(SDL_Renderer* renderHandle)
+void GameMap::RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle)
 {
 	int key = 0;
 	int tilesetIndex = 0;
-	int x = 0;
-	int y = 0;
+	float x = 0;
+	float y = 0;
+	
 	SDL_Rect target;
+	
 	target.x = 0;
 	target.y = 0;
 	target.w = 64;
 	target.h = 64;
 
-	for (int layer = 0; layer < map->layers.size(); layer++) 
+	for (int layer = 0; layer < map.mLayers.size(); layer++) 
 	{
 		for (int tile = 0; tile < NrOfTilesInLayer; tile++) 
 		{
 			//Only render if the tile exists (non zero)
-			if (map->layers[layer]->data[tile] != 0) {
-				key = map->layers[layer]->data[tile] - 1;
+			if (map.mLayers[layer].mData[tile] != 0) {
+				key = map.mLayers[layer].mData[tile] - 1;
 
 				//Finding correct index is needed because of the structure of the tilesets
 				//when using multiple tilesets in the same map.
@@ -56,35 +57,47 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle)
 
 
 				//Orthographic coordinates
-				int Ortho_x = tile / map->width;
-				int Ortho_y = tile % map->height;
+				float Ortho_x = tile / map.mWidth;
+				float Ortho_y = tile % map.mHeight;
 
 				//Convert to isometric coordinates
 				//TODO: Make a function for this
-				x = (Ortho_y - Ortho_x) * (map->tileWidth / 2);
-				y = (Ortho_y + Ortho_x) * (map->tileHeight / 2);
+				x = (Ortho_y - Ortho_x) * (map.mTileWidth / 2);
+				y = ((Ortho_y + Ortho_x) * (map.mTileHeight / 2)) + map.mLayers[layer].mOffsety;
 				
-				//A stupid hack to center the map
-				x += mapWidthPx/2;
-				y += 100;
+				//Tiled Map centering
+				const int side = map.mHeight + map.mWidth;
+				float xwid = side * (map.mTileWidth / 2);
+				float yheig = side * (map.mTileHeight / 2);
+
+				float diagonal = sqrt(pow(mapWidthPx, 2) + pow(mapHeightPx, 2));
+				
+				x -= map.mTileWidth/2;
+				y -= map.mTileHeight;
+				y -= yheig/2;
+
+				x += cameraRectangle->w / 2;
+				//y += cameraRectangle->h / 2;
+
+				//x += cameraRectangle->w / 2 - 50;
+				//y += cameraRectangle->h / 2;
+				//x -= diagonal / 2;
+				//y += ;
 				
 				tileSets[tilesetIndex]->RenderFromSheet(renderHandle, x, y, key, &target, NULL, SDL_FLIP_NONE);
-
 			}
-			
 		}
 	}
-
 }
 
 std::string GameMap::loadXMLString(std::string path)
 {
 	const char* path_c = path.c_str();
-	ifstream fileStream;
+	std::ifstream fileStream;
 	fileStream.open(path_c);
 
 	if (!fileStream.is_open()) {
-		cout << "Roomloader failed ! \nCould not find file " << path_c << "\n";
+		std::cout << "Roomloader failed ! \nCould not find file " << path_c << "\n";
 		return std::string("");
 	}
 
@@ -95,33 +108,31 @@ std::string GameMap::loadXMLString(std::string path)
 	return XMLstring;
 }
 
-NLTmxMap * GameMap::loadTmxMap(std::string path)
+void GameMap::loadTmxMap(std::string path)
 {
 	std::string xmlString = loadXMLString(path);
 
-	if (xmlString == "") return false;
+	if (xmlString == "") return;
 
 	char* xml = new char[xmlString.length() + 1];
 	strcpy_s(xml, xmlString.length() + 1, xmlString.c_str());
 
-	NLTmxMap* map = NLLoadTmxMap(xml);
-	
-	return map;
+	map.LoadFromXml(xml);
 }
 
-void GameMap::loadTileSets(SDL_Renderer* renderHandle, std::vector<NLTmxMapTileset*> tilesets)
+void GameMap::loadTileSets(SDL_Renderer* renderHandle, std::vector<TmxMapTileset>& tilesets)
 {
-	for (NLTmxMapTileset* tileset : tilesets)
+	for (TmxMapTileset tileset : tilesets)
 	{
 		TileSet* newset = new TileSet;
-		newset->SetName(tileset->name);
-		newset->SetfirstId(tileset->firstGid);
+		newset->SetName(tileset.mName);
+		newset->SetfirstId(tileset.mFirstGid);
 
 		newset->LoadTileSetFromFile(
 			renderHandle, 
-			paths::PathTilesets() + tileset->name + ".png", 
-			tileset->tileWidth, 
-			tileset->tileHeight);
+			paths::PathTilesets() + tileset.mName + ".png", 
+			tileset.mTileWidth, 
+			tileset.mTileHeight);
 
 		tileSetFirstIdLookup.push_back(newset->GetFirstId());
 		tileSets.push_back(newset);

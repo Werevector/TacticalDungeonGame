@@ -12,6 +12,7 @@ public:
 	void Clear(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	void Clear();
 	void SwapBuffer();
+	SDL_Rect* getWindowMetrics();
 
 	SDL_Rect windowMetrics;
 	Uint32 flags;
