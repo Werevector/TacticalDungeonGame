@@ -4,7 +4,8 @@
 #include <fstream>
 #include <map>
 #include "json.hpp"
-#include "PrimitiveRenderComponent.h"
+#include "sdl.h"
+#include "IsometricSpriteRenderer.h"
 
 typedef ActorComponent* (*pfunc)(nlohmann::basic_json<>& component);
 

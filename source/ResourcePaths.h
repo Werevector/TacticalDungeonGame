@@ -8,5 +8,6 @@ public:
 	static std::string PathActors();
 	static std::string PathMaps();
 	static std::string PathTilesets();
+	static std::string PathSpriteSheets();
 
 };

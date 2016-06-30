@@ -20,25 +20,27 @@ bool GameLogic::InitTestVersion()
 	
 	actorFactory.renderHandle = gameWindow.renderHandle;
 
-	mGameCamera.mCameraWidth = 800;
-	mGameCamera.mCameraHeight = 600;
+	mGameCamera.mCameraWidth = gameWindow.windowMetrics.w;
+	mGameCamera.mCameraHeight = gameWindow.windowMetrics.h;
 
 	event = new SDL_Event();
 
-	//LoadAndAddActor(basepathActors + "actor.json");
-
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "empty.tmx");
+	
+	LoadAndAddActor("actor.json");
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "openpath.tmx");
+	
 
 	return true;
 }
 
 void GameLogic::Update(int framedelta)
 {
+	gameMap.RenderMap(gameWindow.renderHandle, &mGameCamera.GetCameraAsRect());
 	for(auto& actor : actors)
 	{
 		actor.second.Update(framedelta);
 	}
-	gameMap.RenderMap(gameWindow.renderHandle, &mGameCamera.GetCameraAsRect());
+	
 }
 
 void GameLogic::Run()
@@ -63,8 +65,8 @@ void GameLogic::HandleWindowEvents() {
 bool GameLogic::LoadAndAddActor(std::string filepath)
 {
 	bool success = true;
-
-	Actor actor = actorFactory.CreateActorFromFile(filepath);
+	std::string path = paths::PathActors() + filepath;
+	Actor actor = actorFactory.CreateActorFromFile(path);
 	actors.emplace(actor.GetActorId(), actor);
 
 	return success;

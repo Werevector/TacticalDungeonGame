@@ -19,3 +19,8 @@ std::string paths::PathTilesets()
 {
 	return BasePath() + "tilesets\\";
 }
+
+std::string paths::PathSpriteSheets()
+{
+	return BasePath() + "spritesheets\\";
+}

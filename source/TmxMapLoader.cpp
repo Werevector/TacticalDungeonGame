@@ -46,10 +46,10 @@ void TmxMap::LoadFromXml(char * xml)
 	while(tilesetNode) 
 	{
 		TmxMapTileset tileset;
-		tileset.mFirstGid = atoi(tilesetNode->first_attribute("firstgid")->value());
-		tileset.mName = tilesetNode->first_attribute("name")->value();
-		tileset.mFilename = tilesetNode->first_node("image")->first_attribute("source")->value();
-		tileset.mTileWidth = atoi(tilesetNode->first_attribute("tilewidth")->value());
+		tileset.mFirstGid	= atoi(tilesetNode->first_attribute("firstgid")->value());
+		tileset.mName		= tilesetNode->first_attribute("name")->value();
+		tileset.mFilename	= tilesetNode->first_node("image")->first_attribute("source")->value();
+		tileset.mTileWidth	= atoi(tilesetNode->first_attribute("tilewidth")->value());
 		tileset.mTileHeight = atoi(tilesetNode->first_attribute("tileheight")->value());
 
 		mTilesets.push_back(tileset);
@@ -60,9 +60,9 @@ void TmxMap::LoadFromXml(char * xml)
 	while (layerNode) 
 	{
 		TmxMapLayer layer;
-		layer.mName = layerNode->first_attribute("name")->value();
-		layer.mWidth = atoi(layerNode->first_attribute("width")->value());
-		layer.mHeight = atoi(layerNode->first_attribute("height")->value());
+		layer.mName		= layerNode->first_attribute("name")->value();
+		layer.mWidth	= atoi(layerNode->first_attribute("width")->value());
+		layer.mHeight	= atoi(layerNode->first_attribute("height")->value());
 
 		//The Tiled editor does not write the offset attribute when offset = 0.
 		//Therefore we do a NULL check on the node

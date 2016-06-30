@@ -9,6 +9,7 @@ public:
 
 	ActorComponent();
 	~ActorComponent();
+	virtual void PostInit() {};
 
 	unsigned int GetComponentId() { return component_id; }
 	virtual void Update(int framedelta) {};

@@ -16,6 +16,7 @@ public:
 
 	bool LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path);
 	void RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle);
+	
 
 private:
 
@@ -36,6 +37,6 @@ private:
 
 	int NrOfLayers;
 
-	SDLTexture testTex;
+	//SDLTexture testTex;
 
 };

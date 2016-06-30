@@ -2,29 +2,21 @@
 
 ActorFactory::ActorFactory()
 {
-	auto PrimitiveRendererCreator = [=](nlohmann::basic_json<>& component)
+	auto IsometricSpriteRendererCreator = [=](nlohmann::basic_json<>& component)
 	{
-		SDL_Renderer* r = renderHandle;
+		std::string imageName = component.find("spritesheet").value();
+		std::string imageType = component.find("imagetype").value();
+		auto target = component.find("position");
+		int x = target.value()["X"];
+		int y = target.value()["Y"];
 
-		SDL_Color c;
-		auto color = component.find("color").value();
-		c.r = color["R"];
-		c.g = color["G"];
-		c.b = color["B"];
-
-		SDL_Rect t;
-		auto target = component["target"];
-		t.x = target["X"];
-		t.y = target["Y"];
-		t.w = target["W"];
-		t.h = target["H"];
-
-		PrimitiveRenderComponent prc(r, c, t);
-		std::shared_ptr<ActorComponent> prcPointer = std::make_shared<PrimitiveRenderComponent>(prc);
-		return prcPointer;
+		IsometricSpriteRenderer isr(renderHandle);
+		isr.SetSpriteSheetName(imageName, imageType);
+		isr.SetPos(x, y);
+		std::shared_ptr<ActorComponent> isrPointer = std::make_shared<IsometricSpriteRenderer>(isr);
+		return isrPointer;
 	};
-
-	componentCreatorMap.emplace("PrimitiveRenderComponent", PrimitiveRendererCreator);
+	componentCreatorMap.emplace("IsometricSpriteRenderer", IsometricSpriteRendererCreator);
 }
 
 Actor ActorFactory::CreateActorFromFile(std::string filepath)
@@ -55,6 +47,7 @@ void ActorFactory::PopulateComponents(std::string filepath, Actor& actor)
 			std::shared_ptr<ActorComponent> newComponentPtr = componentCreatorMap.find(type)->second(componentJSON);
 			newComponentPtr->component_name = type;
 			newComponentPtr->component_id = getNextComponentId();
+			newComponentPtr->PostInit();
 			actor.AddActorComponent(newComponentPtr);
 		}
 	}

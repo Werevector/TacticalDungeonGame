@@ -15,7 +15,7 @@ bool GameMap::LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path)
 
 	loadTileSets(renderHandle, map.mTilesets);
 
-	testTex.LoadFromImgFile(renderHandle, paths::PathTilesets() + "iso-64x64-building_2" + ".png");
+	//testTex.LoadFromImgFile(renderHandle, paths::PathTilesets() + "iso-64x64-building_2" + ".png");
 	return success;
 }
 
@@ -65,24 +65,15 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle)
 				x = (Ortho_y - Ortho_x) * (map.mTileWidth / 2);
 				y = ((Ortho_y + Ortho_x) * (map.mTileHeight / 2)) + map.mLayers[layer].mOffsety;
 				
-				//Tiled Map centering
+				//Centering the map in the window
 				const int side = map.mHeight + map.mWidth;
 				float xwid = side * (map.mTileWidth / 2);
 				float yheig = side * (map.mTileHeight / 2);
-
-				float diagonal = sqrt(pow(mapWidthPx, 2) + pow(mapHeightPx, 2));
-				
 				x -= map.mTileWidth/2;
 				y -= map.mTileHeight;
-				y -= yheig/2;
-
+				y -= yheig / 2;
 				x += cameraRectangle->w / 2;
-				//y += cameraRectangle->h / 2;
-
-				//x += cameraRectangle->w / 2 - 50;
-				//y += cameraRectangle->h / 2;
-				//x -= diagonal / 2;
-				//y += ;
+				y += cameraRectangle->h / 2;
 				
 				tileSets[tilesetIndex]->RenderFromSheet(renderHandle, x, y, key, &target, NULL, SDL_FLIP_NONE);
 			}
