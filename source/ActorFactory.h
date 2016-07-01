@@ -6,6 +6,8 @@
 #include "json.hpp"
 #include "sdl.h"
 #include "IsometricSpriteRenderer.h"
+#include "GameMap.h"
+
 
 typedef ActorComponent* (*pfunc)(nlohmann::basic_json<>& component);
 
@@ -15,6 +17,8 @@ public:
 	ActorFactory();
 	SDL_Renderer* renderHandle;
 	Actor CreateActorFromFile(std::string filepath);
+
+
 
 private:
 

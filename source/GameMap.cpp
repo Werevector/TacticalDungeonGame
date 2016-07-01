@@ -135,9 +135,9 @@ void GameMap::loadTileSets(SDL_Renderer* renderHandle, std::vector<TmxMapTileset
 int GameMap::findTilesetIndex(int key)
 {
 	int index = 0;
-	for (int i = tileSets.size() - 1; i > 0; i--)
+	for (int i = tileSetFirstIdLookup.size() - 1; i > 0; i--)
 	{
-		if (key + 1 > tileSets[i]->GetFirstId()) {
+		if (key + 1 >= tileSetFirstIdLookup[i]) {
 			index = i;
 			break;
 		}
