@@ -56,7 +56,7 @@ SDL_Rect* SDLGameWindow::getWindowMetrics()
 	return &windowMetrics;
 }
 
-void SDLGameWindow::versionPrint()
+void SDLGameWindow::VersionPrint()
 {
 	SDL_version compiled;
 	SDL_version linked;

@@ -8,7 +8,7 @@ public:
 
 	bool Init();
 	bool CreateGameWindowAndRenderer();
-	void versionPrint();
+	void VersionPrint();
 	void Clear(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	void Clear();
 	void SwapBuffer();

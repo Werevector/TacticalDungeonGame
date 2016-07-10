@@ -14,9 +14,9 @@ bool GameLogic::InitTestVersion()
 	gameWindow.windowMetrics.w = 800;
 	gameWindow.windowMetrics.h = 600;
 	gameWindow.windowTitle = "Dungeons n stuff !";
-	gameWindow.flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+	gameWindow.flags = SDL_WINDOW_SHOWN;
 	gameWindow.CreateGameWindowAndRenderer();
-	gameWindow.versionPrint();
+	gameWindow.VersionPrint();
 	
 	actorFactory.renderHandle = gameWindow.renderHandle;
 
@@ -60,6 +60,8 @@ void GameLogic::HandleWindowEvents() {
 			quit = true;
 		}
 	}
+	auto keyboardStates = SDL_GetKeyboardState(NULL);
+	if (keyboardStates[SDL_SCANCODE_ESCAPE]) quit = true;
 }
 
 bool GameLogic::LoadAndAddActor(std::string filepath)
