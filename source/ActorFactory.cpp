@@ -4,15 +4,22 @@ ActorFactory::ActorFactory()
 {
 	auto IsometricSpriteRendererCreator = [=](nlohmann::basic_json<>& component)
 	{
+		IsometricSpriteRenderer isr(renderHandle);
+		
 		std::string imageName = component.find("spritesheet").value();
 		std::string imageType = component.find("imagetype").value();
+		isr.SetSpriteSheetName(imageName, imageType);
+		
 		auto target = component.find("position");
 		int x = target.value()["X"];
 		int y = target.value()["Y"];
-
-		IsometricSpriteRenderer isr(renderHandle);
-		isr.SetSpriteSheetName(imageName, imageType);
 		isr.SetPos(x, y);
+
+		auto keyNode = component.find("key");
+		if (keyNode != component.end()) {
+			isr.SetKey(keyNode.value());
+		}
+		
 		std::shared_ptr<ActorComponent> isrPointer = std::make_shared<IsometricSpriteRenderer>(isr);
 		return isrPointer;
 	};

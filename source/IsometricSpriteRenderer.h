@@ -10,11 +10,14 @@ class IsometricSpriteRenderer : public ActorComponent {
 
 public:
 
+	IsometricSpriteRenderer();
+	void Init() override;
 	void PostInit() override;
 	IsometricSpriteRenderer(SDL_Renderer* renderHandle);
 	void SetSpriteSheetName(std::string sheetName, std::string imgtype);
 	void Update(int framedelta) override;
 	void SetPos(int, int);
+	void SetKey(int);
 
 protected:
 
@@ -28,8 +31,12 @@ private:
 	int mPosX;
 	int mPosY;
 
+	int mSpriteKey;
+
 	std::string mImagePath;
 	std::string mMetaPath;
+
+	
 	
 
 };

@@ -1,5 +1,14 @@
 #include "IsometricSpriteRenderer.h"
 
+IsometricSpriteRenderer::IsometricSpriteRenderer()
+{
+	mSpriteKey = 0;
+}
+
+void IsometricSpriteRenderer::Init()
+{
+}
+
 void IsometricSpriteRenderer::PostInit()
 {
 	mSpriteSet.LoadSpriteSetFromFile(mRenderHandle, mImagePath, mMetaPath);
@@ -19,11 +28,16 @@ void IsometricSpriteRenderer::SetSpriteSheetName(std::string sheetName, std::str
 
 void IsometricSpriteRenderer::Update(int framedelta)
 {
-	mSpriteSet.RenderSpriteFromKey(mRenderHandle, mPosX, mPosY, 0);
+	mSpriteSet.RenderSpriteFromKey(mRenderHandle, mPosX, mPosY, mSpriteKey);
 }
 
 void IsometricSpriteRenderer::SetPos(int x, int y) 
 {
 	mPosX = x;
 	mPosY = y;
+}
+
+void IsometricSpriteRenderer::SetKey(int newKey)
+{
+		mSpriteKey = newKey;
 }

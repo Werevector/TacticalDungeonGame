@@ -14,6 +14,7 @@ public:
 	~SpriteSet();
 	bool LoadSpriteSetFromFile(SDL_Renderer* renderHandle, std::string imagePath, std::string metaPath);
 	void RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, int key);
+	int GetAmountOfClips();
 
 	int mWidthPx;
 	int mHeightPx;

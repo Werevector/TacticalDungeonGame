@@ -30,8 +30,10 @@ bool SpriteSet::LoadSpriteSetFromFile(SDL_Renderer * renderHandle, std::string i
 
 void SpriteSet::RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, int key)
 {
-
-	SDL_Rect* clip = &spriteClips[key];
+	int cKey = 0;
+	if (key < spriteClips.size()) cKey = key;
+	
+	SDL_Rect* clip = &spriteClips[cKey];
 	SDL_Rect* target = new SDL_Rect();
 	target->x = x;
 	target->y = y;
@@ -40,6 +42,11 @@ void SpriteSet::RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, in
 
 	//SDL_RenderDrawRect(renderHandle, target);
 	spriteSheet.RenderTexture(renderHandle, x, y, clip, target, NULL, NULL, SDL_FLIP_NONE);
+}
+
+int SpriteSet::GetAmountOfClips()
+{
+	return spriteClips.size();
 }
 
 bool SpriteSet::GenerateClipsFromMeta(std::string metaPath)
