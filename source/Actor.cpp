@@ -22,6 +22,12 @@ void Actor::Update(int framedelta)
 	}
 }
 
+std::shared_ptr<ActorComponent> Actor::FindComponent(std::string name)
+{
+	std::shared_ptr<ActorComponent> component = component_map.find(name)->second;
+	return component;
+}
+
 bool Actor::AddActorComponent(std::shared_ptr<ActorComponent> component) {
 
 	component_map.emplace(component->GetComponentName(), component);

@@ -1,5 +1,6 @@
 #include "ActorFactory.h"
-
+#include "IsometricSpriteRenderer.h"
+#include "MovementComponent.h"
 ActorFactory::ActorFactory()
 {
 	auto IsometricSpriteRendererCreator = [=](nlohmann::basic_json<>& component)
@@ -24,17 +25,51 @@ ActorFactory::ActorFactory()
 		return isrPointer;
 	};
 	componentCreatorMap.emplace("IsometricSpriteRenderer", IsometricSpriteRendererCreator);
+
+	auto MovementComponentCreator = [=](nlohmann::basic_json<>& component)
+	{
+		MovementComponent mcc;
+
+		auto positionAttr = component.find("position");
+		if (positionAttr != component.end()) 
+		{
+			int x = positionAttr.value()["X"];
+			int y = positionAttr.value()["Y"];
+			mcc.SetPos(x, y);
+		}
+
+		auto velocityAttr = component.find("velocity");
+		if (velocityAttr != component.end())
+		{
+			int x = velocityAttr.value()["X"];
+			int y = velocityAttr.value()["Y"];
+			mcc.SetVelocity(x, y);
+		}
+
+		auto accelerationAttr = component.find("acceleration");
+		if (accelerationAttr != component.end())
+		{
+			int x = accelerationAttr.value()["X"];
+			int y = accelerationAttr.value()["Y"];
+			mcc.SetAcceleration(x, y);
+		}
+
+		std::shared_ptr<ActorComponent> mccPointer = std::make_shared<MovementComponent>(mcc);
+		return mccPointer;
+	};
+	componentCreatorMap.emplace("MovementComponent", MovementComponentCreator);
 }
 
-Actor ActorFactory::CreateActorFromFile(std::string filepath)
+std::shared_ptr<Actor> ActorFactory::CreateActorFromFile(std::string filepath)
 {
 	Actor actor(getNextActorId());
-	PopulateComponents(filepath, actor);
+	std::shared_ptr<Actor> actorPtr = std::make_shared<Actor>(actor);
+	PopulateComponents(filepath, actorPtr);
 
-	return actor;
+	return actorPtr;
 }
 
-void ActorFactory::PopulateComponents(std::string filepath, Actor& actor)
+void ActorFactory::PopulateComponents(std::string filepath, std::shared_ptr<Actor> actorStrongPtr)
 {
 	using nlohmann::json;
 
@@ -57,8 +92,8 @@ void ActorFactory::PopulateComponents(std::string filepath, Actor& actor)
 			newComponentPtr->component_name = type;
 			newComponentPtr->component_id = getNextComponentId();
 			newComponentPtr->PostInit();
-			newComponentPtr->setOwner(actor.GetActorId());
-			actor.AddActorComponent(newComponentPtr);
+			newComponentPtr->setOwner(actorStrongPtr->GetActorId(), actorStrongPtr);
+			actorStrongPtr->AddActorComponent(newComponentPtr);
 		}
 	}
 

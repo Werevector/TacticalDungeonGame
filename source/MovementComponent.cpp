@@ -1,4 +1,5 @@
 #include "MovementComponent.h"
+#include "IsometricSpriteRenderer.h"
 
 MovementComponent::MovementComponent()
 {
@@ -21,14 +22,33 @@ void MovementComponent::PostInit()
 void MovementComponent::Update(int framedelta)
 {
 	mVelocityX += mAccelX;
-	mPosX += mVelocityX;
-
 	mVelocityY += mAccelY;
-	mPosY += mVelocityY;
+	
+	mPosX += mVelocityX / framedelta;
+	mPosY += mVelocityY / framedelta;
+
+	auto ownerStrongPtr = std::shared_ptr<Actor>(ownerPtr);
+
+	auto componentPtr = ownerStrongPtr->FindComponent("IsometricSpriteRenderer");
+	auto isr = std::static_pointer_cast<IsometricSpriteRenderer>(componentPtr);
+	isr->SetPos(mPosX, mPosY);
+	
 }
 
-void MovementComponent::SetPos(int newX, int newY)
+void MovementComponent::SetPos(float newX, float newY)
 {
 	mPosX = newX;
 	mPosY = newY;
+}
+
+void MovementComponent::SetVelocity(float newVelX, float newVelY)
+{
+	mVelocityX = newVelX;
+	mVelocityY = newVelY;
+}
+
+void MovementComponent::SetAcceleration(float newAccX, float newAccY)
+{
+	mAccelX = newAccX;
+	mAccelY = newAccY;
 }

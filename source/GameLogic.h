@@ -23,7 +23,7 @@ private:
 	void Update(int framedelta);
 	void HandleWindowEvents();
 
-	std::map<unsigned int, Actor> actors;
+	std::map<unsigned int, std::shared_ptr<Actor>> actors;
 	
 	ActorFactory actorFactory;
 	SDL_Event* event;
@@ -34,6 +34,7 @@ private:
 	Camera mGameCamera;
 
 	bool quit = false;
-
+	Uint32 TicksNow;
+	Uint32 TicksLast;
 
 };

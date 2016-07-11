@@ -29,6 +29,8 @@ bool GameLogic::InitTestVersion()
 	LoadAndAddActor("actor.json");
 	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "openpath.tmx");
 	
+	TicksNow = SDL_GetTicks();
+	TicksLast = TicksNow;
 
 	return true;
 }
@@ -38,7 +40,7 @@ void GameLogic::Update(int framedelta)
 	gameMap.RenderMap(gameWindow.renderHandle, &mGameCamera.GetCameraAsRect());
 	for(auto& actor : actors)
 	{
-		actor.second.Update(framedelta);
+		actor.second->Update(framedelta);
 	}
 	
 }
@@ -48,7 +50,13 @@ void GameLogic::Run()
 	while (!quit) {
 		gameWindow.Clear();
 		HandleWindowEvents();
-		Update(1);
+
+		int framedelta = 1;
+		TicksNow = SDL_GetTicks();
+		if (TicksNow > TicksLast) framedelta = TicksNow - TicksLast;
+		TicksLast = TicksNow;
+
+		Update(framedelta);
 		gameWindow.SwapBuffer();
 	}
 
@@ -68,8 +76,8 @@ bool GameLogic::LoadAndAddActor(std::string filepath)
 {
 	bool success = true;
 	std::string path = paths::PathActors() + filepath;
-	Actor actor = actorFactory.CreateActorFromFile(path);
-	actors.emplace(actor.GetActorId(), actor);
+	std::shared_ptr<Actor> actorPtr = actorFactory.CreateActorFromFile(path);
+	actors.emplace(actorPtr->GetActorId(), actorPtr);
 
 	return success;
 }

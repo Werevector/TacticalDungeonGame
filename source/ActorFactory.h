@@ -5,7 +5,7 @@
 #include <map>
 #include "json.hpp"
 #include "sdl.h"
-#include "IsometricSpriteRenderer.h"
+
 #include "GameMap.h"
 
 
@@ -16,7 +16,7 @@ public:
 
 	ActorFactory();
 	SDL_Renderer* renderHandle;
-	Actor CreateActorFromFile(std::string filepath);
+	std::shared_ptr<Actor> CreateActorFromFile(std::string filepath);
 
 
 
@@ -26,7 +26,7 @@ private:
 			 std::function<std::shared_ptr<ActorComponent>(nlohmann::basic_json<>&)>>
 			 componentCreatorMap;
 
-	void PopulateComponents(std::string filepath, Actor& actor);
+	void PopulateComponents(std::string filepath, std::shared_ptr<Actor>);
 
 	int actorIdCounter = 0;
 	int componentIdCounter = 0;

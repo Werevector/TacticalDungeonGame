@@ -23,7 +23,6 @@ void IsometricSpriteRenderer::SetSpriteSheetName(std::string sheetName, std::str
 {
 	mImagePath = paths::PathSpriteSheets() + sheetName + imgtype;
 	mMetaPath = paths::PathSpriteSheets() + sheetName + ".meta";
-	
 }
 
 void IsometricSpriteRenderer::Update(int framedelta)

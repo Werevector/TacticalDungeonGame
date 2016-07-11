@@ -1,5 +1,5 @@
 #pragma once
-#include "ActorComponent.h"
+#include "Actor.h"
 #include "SpriteSet.h"
 #include "sdl.h"
 #include "ResourcePaths.h"

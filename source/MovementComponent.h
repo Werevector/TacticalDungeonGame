@@ -1,5 +1,5 @@
 #pragma once
-#include "ActorComponent.h"
+#include "Actor.h"
 #include "sdl.h"
 
 class MovementComponent : public ActorComponent {
@@ -12,7 +12,9 @@ public:
 	void Init() override;
 	void PostInit() override;
 	void Update(int framedelta) override;
-	void SetPos(int, int);
+	void SetPos(float, float);
+	void SetVelocity(float, float);
+	void SetAcceleration(float, float);
 
 protected:
 

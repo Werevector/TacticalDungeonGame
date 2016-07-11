@@ -1,17 +1,24 @@
 {
     "components":
     {
-        "IsometricSpriteRenderer": 
+        "IsometricSpriteRenderer":
         {
             "component_type": "IsometricSpriteRenderer",
             "spritesheet": "citizen",
             "imagetype": ".png",
-            "position": 
+            "position":
             {
                 "X": 220,
                 "Y": 250
             },
             "key": 4
+        },
+
+        "MovementComponent":
+        {
+          "component_type": "MovementComponent",
+          "position": { "X": 200, "Y": 250},
+          "velocity": { "X": 10, "Y": 0}
         }
     }
 }
