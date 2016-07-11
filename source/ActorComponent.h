@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 
 class ActorComponent {
 
@@ -18,13 +19,13 @@ public:
 
 protected:
 	unsigned int component_id;
-	unsigned int owner_id;
+	unsigned int mOwner;
 	std::string component_name;
 
 private:
 
-	void setOwner(unsigned int id) {
-		owner_id = id;
+	void setOwner(unsigned int owner) {
+		mOwner = owner;
 	}
 
 };

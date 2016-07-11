@@ -15,7 +15,6 @@ bool GameMap::LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path)
 
 	loadTileSets(renderHandle, map.mTilesets);
 
-	//testTex.LoadFromImgFile(renderHandle, paths::PathTilesets() + "iso-64x64-building_2" + ".png");
 	return success;
 }
 

@@ -49,12 +49,15 @@ void ActorFactory::PopulateComponents(std::string filepath, Actor& actor)
 	{
 		json actorJSON(actorstream);
 		auto componentsJSON = actorJSON.find("components").value();
-		for (auto& componentJSON : componentsJSON) {
+		
+		for (auto& componentJSON : componentsJSON)
+		{
 			std::string type = componentJSON.find("component_type").value();
 			std::shared_ptr<ActorComponent> newComponentPtr = componentCreatorMap.find(type)->second(componentJSON);
 			newComponentPtr->component_name = type;
 			newComponentPtr->component_id = getNextComponentId();
 			newComponentPtr->PostInit();
+			newComponentPtr->setOwner(actor.GetActorId());
 			actor.AddActorComponent(newComponentPtr);
 		}
 	}
