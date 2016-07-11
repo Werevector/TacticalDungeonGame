@@ -20,7 +20,7 @@ public:
 
 private:
 	bool LoadAndAddActor(std::string filepath);
-	void Update(int framedelta);
+	void Update(float framedelta);
 	void HandleWindowEvents();
 
 	std::map<unsigned int, std::shared_ptr<Actor>> actors;

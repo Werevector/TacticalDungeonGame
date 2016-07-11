@@ -15,8 +15,8 @@ public:
 	void PostInit() override;
 	IsometricSpriteRenderer(SDL_Renderer* renderHandle);
 	void SetSpriteSheetName(std::string sheetName, std::string imgtype);
-	void Update(int framedelta) override;
-	void SetPos(int, int);
+	void Update(float framedelta) override;
+	void SetPos(float, float);
 	void SetKey(int);
 
 protected:
@@ -28,8 +28,8 @@ private:
 	SDL_Rect*		mRenderTarget;
 	SpriteSet		mSpriteSet;
 
-	int mPosX;
-	int mPosY;
+	float mPosX;
+	float mPosY;
 
 	int mSpriteKey;
 

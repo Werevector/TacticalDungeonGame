@@ -19,19 +19,23 @@ void MovementComponent::PostInit()
 {
 }
 
-void MovementComponent::Update(int framedelta)
+void MovementComponent::Update(float framedelta)
 {
 	mVelocityX += mAccelX;
 	mVelocityY += mAccelY;
 	
-	mPosX += mVelocityX / framedelta;
-	mPosY += mVelocityY / framedelta;
+	mPosX += mVelocityX * framedelta;
+	mPosY += mVelocityY * framedelta;
 
 	auto ownerStrongPtr = std::shared_ptr<Actor>(ownerPtr);
 
 	auto componentPtr = ownerStrongPtr->FindComponent("IsometricSpriteRenderer");
-	auto isr = std::static_pointer_cast<IsometricSpriteRenderer>(componentPtr);
-	isr->SetPos(mPosX, mPosY);
+	if(componentPtr != nullptr)
+	{
+		auto isr = std::static_pointer_cast<IsometricSpriteRenderer>(componentPtr);
+		isr->SetPos(mPosX, mPosY);
+	}
+	
 	
 }
 

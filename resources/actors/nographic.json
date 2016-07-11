@@ -1,0 +1,15 @@
+{
+    "components": {
+        "MovementComponent": {
+            "component_type": "MovementComponent",
+            "position": {
+                "X": 200,
+                "Y": 250
+            },
+            "velocity": {
+                "X": 10,
+                "Y": 5
+            }
+        }
+    }
+}

@@ -26,7 +26,9 @@ bool GameLogic::InitTestVersion()
 	event = new SDL_Event();
 
 	
-	LoadAndAddActor("actor.json");
+	LoadAndAddActor("player.json");
+	LoadAndAddActor("enemy.json");
+
 	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "openpath.tmx");
 	
 	TicksNow = SDL_GetTicks();
@@ -35,7 +37,7 @@ bool GameLogic::InitTestVersion()
 	return true;
 }
 
-void GameLogic::Update(int framedelta)
+void GameLogic::Update(float framedelta)
 {
 	gameMap.RenderMap(gameWindow.renderHandle, &mGameCamera.GetCameraAsRect());
 	for(auto& actor : actors)
@@ -51,9 +53,10 @@ void GameLogic::Run()
 		gameWindow.Clear();
 		HandleWindowEvents();
 
-		int framedelta = 1;
+		float framedelta = 0;
 		TicksNow = SDL_GetTicks();
-		if (TicksNow > TicksLast) framedelta = TicksNow - TicksLast;
+		if (TicksNow > TicksLast) framedelta = float(TicksNow - TicksLast) / 1000;
+		
 		TicksLast = TicksNow;
 
 		Update(framedelta);

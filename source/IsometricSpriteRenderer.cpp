@@ -25,12 +25,12 @@ void IsometricSpriteRenderer::SetSpriteSheetName(std::string sheetName, std::str
 	mMetaPath = paths::PathSpriteSheets() + sheetName + ".meta";
 }
 
-void IsometricSpriteRenderer::Update(int framedelta)
+void IsometricSpriteRenderer::Update(float framedelta)
 {
 	mSpriteSet.RenderSpriteFromKey(mRenderHandle, mPosX, mPosY, mSpriteKey);
 }
 
-void IsometricSpriteRenderer::SetPos(int x, int y) 
+void IsometricSpriteRenderer::SetPos(float x, float y) 
 {
 	mPosX = x;
 	mPosY = y;

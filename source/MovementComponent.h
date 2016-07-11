@@ -11,7 +11,7 @@ public:
 	MovementComponent();
 	void Init() override;
 	void PostInit() override;
-	void Update(int framedelta) override;
+	void Update(float framedelta) override;
 	void SetPos(float, float);
 	void SetVelocity(float, float);
 	void SetAcceleration(float, float);

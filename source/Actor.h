@@ -16,7 +16,7 @@ public:
 	virtual void PostInit() {};
 
 	unsigned int GetComponentId() { return component_id; }
-	virtual void Update(int framedelta) {};
+	virtual void Update(float framedelta) {};
 	std::string GetComponentName() { return component_name; }
 
 protected:
@@ -44,7 +44,7 @@ public:
 	~Actor();
 	
 	void Destroy();
-	void Update(int framedelta);
+	void Update(float framedelta);
 
 	unsigned int GetActorId() {
 		return actor_id;

@@ -12,9 +12,13 @@ ActorFactory::ActorFactory()
 		isr.SetSpriteSheetName(imageName, imageType);
 		
 		auto target = component.find("position");
-		int x = target.value()["X"];
-		int y = target.value()["Y"];
-		isr.SetPos(x, y);
+		if (target != component.end())
+		{
+			int x = target.value()["X"];
+			int y = target.value()["Y"];
+			isr.SetPos(x, y);
+		}
+		
 
 		auto keyNode = component.find("key");
 		if (keyNode != component.end()) {
@@ -33,24 +37,24 @@ ActorFactory::ActorFactory()
 		auto positionAttr = component.find("position");
 		if (positionAttr != component.end()) 
 		{
-			int x = positionAttr.value()["X"];
-			int y = positionAttr.value()["Y"];
+			float x = positionAttr.value()["X"];
+			float y = positionAttr.value()["Y"];
 			mcc.SetPos(x, y);
 		}
 
 		auto velocityAttr = component.find("velocity");
 		if (velocityAttr != component.end())
 		{
-			int x = velocityAttr.value()["X"];
-			int y = velocityAttr.value()["Y"];
+			float x = velocityAttr.value()["X"];
+			float y = velocityAttr.value()["Y"];
 			mcc.SetVelocity(x, y);
 		}
 
 		auto accelerationAttr = component.find("acceleration");
 		if (accelerationAttr != component.end())
 		{
-			int x = accelerationAttr.value()["X"];
-			int y = accelerationAttr.value()["Y"];
+			float x = accelerationAttr.value()["X"];
+			float y = accelerationAttr.value()["Y"];
 			mcc.SetAcceleration(x, y);
 		}
 
@@ -87,6 +91,7 @@ void ActorFactory::PopulateComponents(std::string filepath, std::shared_ptr<Acto
 		
 		for (auto& componentJSON : componentsJSON)
 		{
+			//std::string nametype = ;
 			std::string type = componentJSON.find("component_type").value();
 			std::shared_ptr<ActorComponent> newComponentPtr = componentCreatorMap.find(type)->second(componentJSON);
 			newComponentPtr->component_name = type;
