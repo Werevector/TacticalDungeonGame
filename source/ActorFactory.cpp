@@ -69,7 +69,6 @@ ActorFactory::ActorFactory()
 	{
 		MouseClickControl component;
 		mouseClickDelegatePtr->bind(&component, &MouseClickControl::HandleMouseClickEvent);
-
 		std::shared_ptr<ActorComponent> componentPointer = std::make_shared<MouseClickControl>(component);
 		
 		return componentPointer;
