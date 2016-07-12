@@ -8,10 +8,9 @@ public:
 	void Init() override;
 	void PostInit() override;
 	void Update(float framedelta) override;
-
+	void HandleMouseClickEvent(SDL_Event* clickEvent);
 protected:
 
 private:
-
 
 };

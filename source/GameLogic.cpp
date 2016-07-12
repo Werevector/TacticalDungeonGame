@@ -19,6 +19,7 @@ bool GameLogic::InitTestVersion()
 	gameWindow.VersionPrint();
 	
 	actorFactory.renderHandle = gameWindow.renderHandle;
+	actorFactory.mouseClickDelegatePtr = &mouseDelegate;
 
 	mGameCamera.mCameraWidth = gameWindow.windowMetrics.w;
 	mGameCamera.mCameraHeight = gameWindow.windowMetrics.h;
@@ -68,8 +69,16 @@ void GameLogic::Run()
 void GameLogic::HandleWindowEvents() {
 	
 	while (SDL_PollEvent(event) != NULL) {
-		if (event->type == SDL_QUIT) {
+		switch (event->type) {
+		case SDL_QUIT:
 			quit = true;
+			break;
+		case SDL_MOUSEBUTTONUP:
+			std::cout << "Event found in gamelogic loop\n";
+			mouseDelegate(event);
+			break;
+		default:
+			break;
 		}
 	}
 

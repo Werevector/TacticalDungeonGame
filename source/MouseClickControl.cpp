@@ -4,23 +4,21 @@ void MouseClickControl::Init()
 {
 }
 
-int MyEventFilter(void* userdata, SDL_Event* event) {
-	
-	if (event->type == SDL_USEREVENT) {
-		std::cout << "UserEvent: " << event->type << std::endl;
-	}
-	return 1;
-}
-
 void MouseClickControl::PostInit()
 {
-	SDL_AddEventWatch(MyEventFilter, (void*)NULL);
+	
 }
 
 void MouseClickControl::Update(float framedelta)
 {
-	SDL_Event* event = new SDL_Event;
-	event->type = SDL_USEREVENT;
 
-	SDL_PushEvent(event);
+}
+
+void MouseClickControl::HandleMouseClickEvent(SDL_Event * clickEvent)
+{
+	int x = 0;
+	int y = 0;
+	SDL_GetMouseState(&x, &y);
+
+	std::cout << "Component recieved clickevent\n x:" << x << "\t" << "y:" << y << std::endl;
 }

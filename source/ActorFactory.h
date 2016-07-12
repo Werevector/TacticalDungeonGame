@@ -5,6 +5,7 @@
 #include <map>
 #include "json.hpp"
 #include "sdl.h"
+#include "FastDelegate.h"
 
 #include "GameMap.h"
 
@@ -18,7 +19,7 @@ public:
 	SDL_Renderer* renderHandle;
 	std::shared_ptr<Actor> CreateActorFromFile(std::string filepath);
 
-
+	fastdelegate::FastDelegate1<SDL_Event*>* mouseClickDelegatePtr;
 
 private:
 
