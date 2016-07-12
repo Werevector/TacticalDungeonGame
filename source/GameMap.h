@@ -16,7 +16,11 @@ public:
 
 	bool LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path);
 	void RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle);
-	
+
+	int GetMapTileWidth() { return map.mTileWidth; }
+	int GetMapTileHeight() { return map.mTileHeight; }
+	int GetNumberOfLayers() { return map.mLayers.size(); }
+	int GetLayerOffset(int i) { return map.mLayers[i].mOffsety; }
 
 private:
 

@@ -66,13 +66,16 @@ void GameLogic::Run()
 }
 
 void GameLogic::HandleWindowEvents() {
+	
 	while (SDL_PollEvent(event) != NULL) {
 		if (event->type == SDL_QUIT) {
 			quit = true;
 		}
 	}
+
 	auto keyboardStates = SDL_GetKeyboardState(NULL);
 	if (keyboardStates[SDL_SCANCODE_ESCAPE]) quit = true;
+
 }
 
 bool GameLogic::LoadAndAddActor(std::string filepath)
