@@ -1,6 +1,8 @@
 #include "ActorFactory.h"
 #include "IsometricSpriteRenderer.h"
 #include "MovementComponent.h"
+#include "MouseClickControl.h"
+
 ActorFactory::ActorFactory()
 {
 	auto IsometricSpriteRendererCreator = [=](nlohmann::basic_json<>& component)
@@ -62,6 +64,16 @@ ActorFactory::ActorFactory()
 		return mccPointer;
 	};
 	componentCreatorMap.emplace("MovementComponent", MovementComponentCreator);
+
+	auto MouseClickControlCreator = [=](nlohmann::basic_json<>& JSONcomponent)
+	{
+		MouseClickControl component;
+		
+		std::shared_ptr<ActorComponent> componentPointer = std::make_shared<MouseClickControl>(component);
+		
+		return componentPointer;
+	};
+	componentCreatorMap.emplace("MouseClickControl", MouseClickControlCreator);
 }
 
 std::shared_ptr<Actor> ActorFactory::CreateActorFromFile(std::string filepath)
@@ -101,8 +113,5 @@ void ActorFactory::PopulateComponents(std::string filepath, std::shared_ptr<Acto
 			actorStrongPtr->AddActorComponent(newComponentPtr);
 		}
 	}
-
-
-
 
 }
