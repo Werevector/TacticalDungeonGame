@@ -2,37 +2,20 @@
 
 #include <ostream>
 #include <memory>
+#include <map>
+#include <list>
+#include <iostream>
+#include "FastDelegate.h"
+#include "EventData.h"
 
-typedef unsigned long EventType;
-typedef std::shared_ptr<IEventData> IEventDataPtr;
-
-class IEventData
-{
-public:
-	virtual const EventType& VGetEventType(void) const = 0;
-	virtual float VGetTimeStamp(void) const = 0;
-	
-	virtual IEventDataPtr VCopy(void) const = 0;
-
-};
-
-class BaseEventData : public IEventData
-{
-	const float mTimeStamp;
-
-public:
-	explicit BaseEventData(const float timeStamp = 0.0f) : mTimeStamp(timeStamp) {}
-	virtual ~BaseEventData(void) {}
-
-	virtual const EventType& VGetEventType(void) const = 0;
-
-	float VGetTimeStamp(void) const { return mTimeStamp; }
-};
+typedef fastdelegate::FastDelegate1<IEventDataPtr> EventListenerDelegate;
 
 class IEventManager 
 {
 
 public:
+
+	enum EConstants {kINFINITE = 0xffffffff};
 
 	explicit IEventManager(const char* namePtr, bool setAsGlobal);
 	virtual ~IEventManager(void);
@@ -47,15 +30,35 @@ public:
 
 	virtual bool VAbortEvent() = 0;
 
-	virtual bool VTickVUpdate() = 0;
+	virtual bool VTickVUpdate(unsigned long maxMillis = kINFINITE) = 0;
 
 	static IEventManager* Get(void);
 };
 
-class Eventmanager : public IEventManager 
+
+const unsigned int EVENTMANAGER_NUM_QUEUES = 2;
+class EventManager : public IEventManager 
 {
+	typedef std::list<EventListenerDelegate> EventListenerList;
+	typedef std::map<EventType, EventListenerList> EventListenerMap;
+	typedef std::list<IEventDataPtr> EventQueue;
+
+	EventListenerMap mEventListeners;
+	EventQueue mQueues[EVENTMANAGER_NUM_QUEUES];
+	
+	int mActiveQueue;
+
 public:
 
+	explicit EventManager(const char* namePtr, bool setAsGlobal);
+	virtual ~EventManager(void) {}
+
+	virtual bool VAddListener(const EventListenerDelegate& eventDelegate, const EventType& type);
+	virtual bool VRemoveListener(const EventListenerDelegate& eventDelegate, const EventType& type);
+	virtual bool VTriggerEvent(const IEventDataPtr& pEvent) const;
+	virtual bool VQueueEvent(const IEventDataPtr& pEvent);
+	virtual bool VAbortEvent(const EventType& type, bool allOfType = false);
+	virtual bool VTickVUpdate(unsigned long maxMillis = kINFINITE);
 
 };
 
