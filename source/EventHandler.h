@@ -1,4 +1,5 @@
 #pragma once
+
 #include <ostream>
 #include <memory>
 
@@ -11,8 +12,6 @@ public:
 	virtual const EventType& VGetEventType(void) const = 0;
 	virtual float VGetTimeStamp(void) const = 0;
 	
-	//For Network, not needed
-	//virtual void VSerialize(std::ostringstream& out) const = 0;
 	virtual IEventDataPtr VCopy(void) const = 0;
 
 };
@@ -52,3 +51,23 @@ public:
 
 	static IEventManager* Get(void);
 };
+
+class Eventmanager : public IEventManager 
+{
+public:
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
