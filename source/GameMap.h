@@ -36,10 +36,13 @@ private:
 
 	int mapWidthPx;
 	int mapHeightPx;
-
 	int NrOfTilesInLayer;
-
 	int NrOfLayers;
+
+	int isoMapWidthPx;
+	int isoMapHeightPx;
+
+
 
 	//SDLTexture testTex;
 

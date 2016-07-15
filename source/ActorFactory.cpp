@@ -100,7 +100,6 @@ void ActorFactory::PopulateComponents(std::string filepath, std::shared_ptr<Acto
 		
 		for (auto& componentJSON : componentsJSON)
 		{
-			//std::string nametype = ;
 			std::string type = componentJSON.find("component_type").value();
 			std::shared_ptr<ActorComponent> newComponentPtr = componentCreatorMap.find(type)->second(componentJSON);
 			newComponentPtr->component_name = type;
