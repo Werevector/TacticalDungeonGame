@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "sdl.h"
 #include "MoveActorEvtData.h"
+#include "Utils.h"
 
 class MovementComponent : public ActorComponent {
 
@@ -13,9 +14,11 @@ public:
 	void Init() override;
 	void PostInit() override;
 	void Update(float framedelta) override;
+	Point2d GetPos();
 	void SetPos(float, float);
 	void SetVelocity(float, float);
 	void SetAcceleration(float, float);
+
 	void ActorMoveDelegate(IEventDataPtr eventDataPtr);
 
 protected:

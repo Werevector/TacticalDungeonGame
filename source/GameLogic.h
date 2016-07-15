@@ -36,6 +36,8 @@ private:
 	
 	GameMap gameMap;
 
+	EventManager* evtManager;
+
 	Camera mGameCamera;
 
 	bool quit = false;

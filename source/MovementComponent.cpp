@@ -42,6 +42,14 @@ void MovementComponent::Update(float framedelta)
 	
 }
 
+Point2d MovementComponent::GetPos()
+{
+	Point2d point;
+	point.x = mPosX;
+	point.y = mPosY;
+	return point;
+}
+
 void MovementComponent::SetPos(float newX, float newY)
 {
 	mPosX = newX;

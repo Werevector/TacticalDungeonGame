@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include <memory>
 #include "ClickedOnScreenEvtData.h"
+#include "MovementComponent.h"
 
 class MouseClickControl : public ActorComponent {
 public:
@@ -19,5 +20,6 @@ protected:
 private:
 
 	Point2d mCurrentTarget;
+	bool arrived = true;
 
 };

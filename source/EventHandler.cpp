@@ -77,7 +77,7 @@ bool EventManager::VRemoveListener(const EventListenerDelegate & eventDelegate, 
 	return success;
 }
 
-bool EventManager::VTriggerEvent(const IEventDataPtr & pEvent) const
+bool EventManager::VTriggerEvent(const IEventDataPtr & pEvent)
 {
 	bool processed = false;
 

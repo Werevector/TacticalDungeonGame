@@ -67,4 +67,5 @@ void SDLGameWindow::VersionPrint()
 		compiled.major, compiled.minor, compiled.patch);
 	printf("But we are linking against SDL version %d.%d.%d.\n",
 		linked.major, linked.minor, linked.patch);
+	printf("------------------------------------------------------\n\n");
 }

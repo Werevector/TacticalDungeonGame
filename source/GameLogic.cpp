@@ -8,6 +8,8 @@ bool GameLogic::Init()
 bool GameLogic::InitTestVersion()
 {
 
+	evtManager = new EventManager(NULL, true);
+
 	gameWindow.Init();
 	gameWindow.windowMetrics.x = 100;
 	gameWindow.windowMetrics.y = 200;
@@ -27,14 +29,14 @@ bool GameLogic::InitTestVersion()
 
 	
 	LoadAndAddActor("player.json");
-	LoadAndAddActor("enemy.json");
+	//LoadAndAddActor("enemy.json");
 
 	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "openpath.tmx");
 	
 	TicksNow = SDL_GetTicks();
 	TicksLast = TicksNow;
 
-	EventManager evtManager()
+	
 
 	return true;
 }
@@ -76,7 +78,7 @@ void GameLogic::HandleWindowEvents() {
 			quit = true;
 			break;
 		case SDL_MOUSEBUTTONUP:
-			std::cout << "MOUSEBUTTONUP SDL EVENT TRIGGERED\n";
+			std::cout << "MOUSE_BUTTON_UP SDL_Event :\n";
 			int x = 0;
 			int y = 0;
 			SDL_GetMouseState(&x, &y);

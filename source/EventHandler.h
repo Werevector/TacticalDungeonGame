@@ -17,7 +17,7 @@ public:
 
 	enum EConstants {kINFINITE = 0xffffffff};
 
-	explicit IEventManager(const char* namePtr, bool setAsGlobal);
+	IEventManager(const char* namePtr, bool setAsGlobal);
 	virtual ~IEventManager(void);
 
 	virtual bool VAddListener(const EventListenerDelegate& eventDelegate, const EventType& type) = 0;
@@ -55,7 +55,7 @@ public:
 
 	virtual bool VAddListener(const EventListenerDelegate& eventDelegate, const EventType& type);
 	virtual bool VRemoveListener(const EventListenerDelegate& eventDelegate, const EventType& type);
-	virtual bool VTriggerEvent(const IEventDataPtr& pEvent) const;
+	virtual bool VTriggerEvent(const IEventDataPtr& pEvent);
 	virtual bool VQueueEvent(const IEventDataPtr& pEvent);
 	virtual bool VAbortEvent(const EventType& type, bool allOfType = false);
 	virtual bool VTickVUpdate(unsigned long maxMillis = kINFINITE);
