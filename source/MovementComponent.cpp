@@ -1,5 +1,6 @@
 #include "MovementComponent.h"
 #include "IsometricSpriteRenderer.h"
+#include "EventHandler.h"
 
 MovementComponent::MovementComponent()
 {
@@ -17,6 +18,8 @@ void MovementComponent::Init()
 
 void MovementComponent::PostInit()
 {
+	EventListenerDelegate delegateFunction(this, &MovementComponent::ActorMoveDelegate);
+	IEventManager::Get()->VAddListener(delegateFunction, MoveActorEvtData::mEventType);
 }
 
 void MovementComponent::Update(float framedelta)
@@ -55,4 +58,14 @@ void MovementComponent::SetAcceleration(float newAccX, float newAccY)
 {
 	mAccelX = newAccX;
 	mAccelY = newAccY;
+}
+
+void MovementComponent::ActorMoveDelegate(IEventDataPtr eventDataPtr)
+{
+	std::shared_ptr<MoveActorEvtData> castEventPtr
+		= std::static_pointer_cast<MoveActorEvtData>(eventDataPtr);
+
+	mPosX = castEventPtr->GetPosition().x;
+	mPosX = castEventPtr->GetPosition().y;
+
 }

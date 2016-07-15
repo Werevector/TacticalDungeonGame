@@ -4,12 +4,12 @@
 
 class MoveActorEvtData : public BaseEventData
 {
-	utility::Point2d mPoint;
+	Point2d mPoint;
 public:
 
 	static const EventType mEventType;
 
-	explicit MoveActorEvtData(utility::Point2d point) : mPoint(point) {}
+	explicit MoveActorEvtData(Point2d point) : mPoint(point) {}
 
 	virtual const EventType& VGetEventType(void) const
 	{
@@ -26,8 +26,6 @@ public:
 		return "MoveActorEvtData";
 	}
 
-	utility::Point2d GetPosition(void) { return mPoint; }
+	Point2d GetPosition(void) { return mPoint; }
 
 };
-
-const EventType MoveActorEvtData::mEventType(0x19a857aa);

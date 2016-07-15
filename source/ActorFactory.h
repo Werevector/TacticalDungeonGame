@@ -1,14 +1,14 @@
 #pragma once
 #include "Actor.h"
+#include "json.hpp"
+#include "sdl.h"
+#include "GameMap.h"
+#include "IsometricSpriteRenderer.h"
+#include "MovementComponent.h"
+#include "MouseClickControl.h"
 #include <iostream>
 #include <fstream>
 #include <map>
-#include "json.hpp"
-#include "sdl.h"
-#include "FastDelegate.h"
-
-#include "GameMap.h"
-
 
 typedef ActorComponent* (*pfunc)(nlohmann::basic_json<>& component);
 
@@ -18,8 +18,6 @@ public:
 	ActorFactory();
 	SDL_Renderer* renderHandle;
 	std::shared_ptr<Actor> CreateActorFromFile(std::string filepath);
-
-	fastdelegate::FastDelegate1<SDL_Event*>* mouseClickDelegatePtr;
 
 private:
 

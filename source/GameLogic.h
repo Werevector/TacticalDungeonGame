@@ -8,6 +8,9 @@
 #include "Camera.h"
 #include "FastDelegate.h"
 #include "FastDelegateBind.h"
+#include "Utils.h"
+#include "ClickedOnScreenEvtData.h"
+#include "EventHandler.h"
 
 class GameLogic {
 
@@ -34,8 +37,6 @@ private:
 	GameMap gameMap;
 
 	Camera mGameCamera;
-
-	fastdelegate::FastDelegate1<SDL_Event*> mouseDelegate;
 
 	bool quit = false;
 	Uint32 TicksNow;

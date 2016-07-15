@@ -19,7 +19,6 @@ bool GameLogic::InitTestVersion()
 	gameWindow.VersionPrint();
 	
 	actorFactory.renderHandle = gameWindow.renderHandle;
-	actorFactory.mouseClickDelegatePtr = &mouseDelegate;
 
 	mGameCamera.mCameraWidth = gameWindow.windowMetrics.w;
 	mGameCamera.mCameraHeight = gameWindow.windowMetrics.h;
@@ -35,6 +34,8 @@ bool GameLogic::InitTestVersion()
 	TicksNow = SDL_GetTicks();
 	TicksLast = TicksNow;
 
+	EventManager evtManager()
+
 	return true;
 }
 
@@ -45,6 +46,7 @@ void GameLogic::Update(float framedelta)
 	{
 		actor.second->Update(framedelta);
 	}
+	EventManager::Get()->VTickVUpdate();
 	
 }
 
@@ -74,10 +76,15 @@ void GameLogic::HandleWindowEvents() {
 			quit = true;
 			break;
 		case SDL_MOUSEBUTTONUP:
-			std::cout << "Event found in gamelogic loop\n";
-			mouseDelegate(event);
-			break;
-		default:
+			std::cout << "MOUSEBUTTONUP SDL EVENT TRIGGERED\n";
+			int x = 0;
+			int y = 0;
+			SDL_GetMouseState(&x, &y);
+			Point2d point;
+			point.x = x;
+			point.y = y;
+			std::shared_ptr<ClickedOnScreenEvtData> clickedEvent = std::make_shared<ClickedOnScreenEvtData>(ClickedOnScreenEvtData(point));
+			IEventManager::Get()->VQueueEvent(std::static_pointer_cast<IEventData>(clickedEvent));
 			break;
 		}
 	}

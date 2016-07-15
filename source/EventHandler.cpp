@@ -1,6 +1,38 @@
 #include "EventHandler.h"
 #include "sdl.h"
 
+//-------------------------------------------------------------------------------------
+// IEventManager
+//-------------------------------------------------------------------------------------
+static IEventManager* gEventManagerPtr = NULL;
+
+IEventManager* IEventManager::Get(void)
+{
+	return gEventManagerPtr;
+}
+
+IEventManager::IEventManager(const char* namePtr, bool setAsGlobal)
+{
+	if (setAsGlobal)
+	{
+		if (gEventManagerPtr)
+		{
+			delete gEventManagerPtr;
+		}
+
+		gEventManagerPtr = this;
+	}
+}
+
+IEventManager::~IEventManager(void)
+{
+	if (gEventManagerPtr == this)
+		gEventManagerPtr = NULL;
+}
+
+//-------------------------------------------------------------------------------------
+// EventManager
+//-------------------------------------------------------------------------------------
 EventManager::EventManager(const char * namePtr, bool setAsGlobal) : IEventManager(namePtr, setAsGlobal)
 {
 	mActiveQueue = 0;
@@ -66,7 +98,7 @@ bool EventManager::VTriggerEvent(const IEventDataPtr & pEvent) const
 
 bool EventManager::VQueueEvent(const IEventDataPtr & pEvent)
 {
-	auto findIt = mEventListeners.find(pEvent->GetEventType());
+	auto findIt = mEventListeners.find(pEvent->VGetEventType());
 	if (findIt != mEventListeners.end())
 	{
 		mQueues[mActiveQueue].push_back(pEvent);

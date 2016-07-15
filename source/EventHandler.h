@@ -20,15 +20,15 @@ public:
 	explicit IEventManager(const char* namePtr, bool setAsGlobal);
 	virtual ~IEventManager(void);
 
-	virtual bool VAddListener() = 0;
+	virtual bool VAddListener(const EventListenerDelegate& eventDelegate, const EventType& type) = 0;
 
-	virtual bool VRemoveListener() = 0;
+	virtual bool VRemoveListener(const EventListenerDelegate& eventDelegate, const EventType& type) = 0;
 
-	virtual bool VTriggerEvent() = 0;
+	virtual bool VTriggerEvent(const IEventDataPtr& pEvent) = 0;
 
-	virtual bool VQueueEvent() = 0;
+	virtual bool VQueueEvent(const IEventDataPtr& pEvent) = 0;
 
-	virtual bool VAbortEvent() = 0;
+	virtual bool VAbortEvent(const EventType& type, bool allOfType = false) = 0;
 
 	virtual bool VTickVUpdate(unsigned long maxMillis = kINFINITE) = 0;
 

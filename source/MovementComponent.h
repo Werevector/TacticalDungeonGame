@@ -1,6 +1,7 @@
 #pragma once
 #include "Actor.h"
 #include "sdl.h"
+#include "MoveActorEvtData.h"
 
 class MovementComponent : public ActorComponent {
 
@@ -15,6 +16,7 @@ public:
 	void SetPos(float, float);
 	void SetVelocity(float, float);
 	void SetAcceleration(float, float);
+	void ActorMoveDelegate(IEventDataPtr eventDataPtr);
 
 protected:
 

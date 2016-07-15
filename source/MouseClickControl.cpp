@@ -1,4 +1,5 @@
 #include "MouseClickControl.h"
+#include "EventHandler.h"
 
 void MouseClickControl::Init()
 {
@@ -6,7 +7,8 @@ void MouseClickControl::Init()
 
 void MouseClickControl::PostInit()
 {
-	
+	EventListenerDelegate delegateFunction(this, &MouseClickControl::ClickedOnScreenDelegate);
+	IEventManager::Get()->VAddListener(delegateFunction, ClickedOnScreenEvtData::mEventType);
 }
 
 void MouseClickControl::Update(float framedelta)
@@ -14,11 +16,10 @@ void MouseClickControl::Update(float framedelta)
 
 }
 
-void MouseClickControl::HandleMouseClickEvent(SDL_Event * clickEvent)
+void MouseClickControl::ClickedOnScreenDelegate(IEventDataPtr eventDataPtr)
 {
-	int x = 0;
-	int y = 0;
-	SDL_GetMouseState(&x, &y);
+	std::shared_ptr<ClickedOnScreenEvtData> castEventDataPtr =
+		std::static_pointer_cast<ClickedOnScreenEvtData>(eventDataPtr);
 
-	std::cout << "Component recieved clickevent\n x:" << x << "\t" << "y:" << y << std::endl;
+	mCurrentTarget = castEventDataPtr->GetPosition();
 }
