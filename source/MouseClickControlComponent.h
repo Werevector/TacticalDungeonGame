@@ -6,6 +6,8 @@
 #include <memory>
 #include "ClickedOnScreenEvtData.h"
 #include "MovementComponent.h"
+#include "Camera.h"
+#include <math.h>
 
 class MouseClickControlComponent : public ActorComponent {
 public:
@@ -14,12 +16,13 @@ public:
 	void PostInit() override;
 	void Update(float framedelta) override;
 	void ClickedOnScreenDelegate(IEventDataPtr eventDataPtr);
+	void SetCamera(Camera* c);
 
 protected:
 
 private:
-
 	utility::Point2d mCurrentTarget;
 	bool arrived = true;
+	Camera* mCameraPtr;
 
 };

@@ -33,3 +33,14 @@ Point2d utility::OrthoToIsoOnMap(float orthoX, float orthoY, int layer, GameMap 
 
 	return point;
 }
+
+Point2d utility::IsoToOrtho(Point2d iso)
+{
+	Point2d ortho;
+
+	ortho.x = (iso.x / (64 / 2) + iso.y / (32 / 2)) / 2;
+	ortho.y = (iso.y / (32 / 2) - (iso.x / (64 / 2))) / 2;
+
+	return ortho;
+
+}

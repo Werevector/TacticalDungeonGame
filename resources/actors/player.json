@@ -9,8 +9,8 @@
         "MovementComponent": {
             "component_type": "MovementComponent",
             "position": {
-                "X": 9,
-                "Y": 9
+                "X": 0,
+                "Y": 0
             },
             "velocity": {
                 "X": 0,

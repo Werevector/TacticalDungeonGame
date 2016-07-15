@@ -66,8 +66,8 @@ ActorFactory::ActorFactory()
 	auto MouseClickControlComponentCreator = [=](nlohmann::basic_json<>& JSONcomponent)
 	{
 		MouseClickControlComponent component;
+		component.SetCamera(cameraPtr);
 		std::shared_ptr<ActorComponent> componentPointer = std::make_shared<MouseClickControlComponent>(component);
-		
 		return componentPointer;
 	};
 	componentCreatorMap.emplace("MouseClickControlComponent", MouseClickControlComponentCreator);

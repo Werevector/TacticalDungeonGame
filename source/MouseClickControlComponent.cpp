@@ -16,8 +16,8 @@ void MouseClickControlComponent::Update(float framedelta)
 {
 
 	float vx = 0; float vy = 0;
-	float speed = 100.f;
-	float area = 1.f;
+	float speed = 10;
+	float area = 0.1f;
 	bool arrivedX = false; bool arrivedY = false;
 	utility::Point2d currPos;
 
@@ -61,12 +61,33 @@ void MouseClickControlComponent::Update(float framedelta)
 
 void MouseClickControlComponent::ClickedOnScreenDelegate(IEventDataPtr eventDataPtr)
 {
+	system("cls");
 	auto ownerStrongPtr = std::shared_ptr<Actor>(ownerPtr);
 	std::cout << "ClickedOnScreenEvent Actor id: " << ownerStrongPtr->GetActorId() << "\n\n";
+	
 	std::shared_ptr<ClickedOnScreenEvtData> castEventDataPtr =
 		std::static_pointer_cast<ClickedOnScreenEvtData>(eventDataPtr);
 
-	mCurrentTarget = castEventDataPtr->GetPosition();
+	utility::Point2d pos = castEventDataPtr->GetPosition();
+	
+	std::cout << "screen x: " << pos.x << "\t\t screen y: " << pos.y << std::endl;
+	
+	//translate to worldspace
+	pos.x += mCameraPtr->mPositionX;
+	pos.y += mCameraPtr->mPositionY;
+	std::cout << "world x: " << pos.x << "\t\t world y: " << pos.y << std::endl;
+
+	utility::Point2d isoPoint = utility::IsoToOrtho(pos);
+	std::cout << "ortho x: " << isoPoint.x << "\t ortho y: " << isoPoint.y << "\n\n";
+
+	mCurrentTarget.x = floor(isoPoint.x);
+	mCurrentTarget.y = floor(isoPoint.y);
+
 	arrived = false;
 
+}
+
+void MouseClickControlComponent::SetCamera(Camera * c)
+{
+	mCameraPtr = c;
 }
