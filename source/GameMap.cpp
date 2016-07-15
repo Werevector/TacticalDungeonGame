@@ -13,6 +13,10 @@ bool GameMap::LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path)
 
 	NrOfLayers = map.mLayers.size();
 
+	const int side = map.mHeight + map.mWidth;
+	isoMapWidthPx = side * (map.mTileWidth / 2);
+	isoMapHeightPx = side * (map.mTileHeight / 2);
+
 	loadTileSets(renderHandle, map.mTilesets);
 
 	return success;
@@ -40,9 +44,6 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle)
 			if (map.mLayers[layer].mData[tile] != 0) {
 				key = map.mLayers[layer].mData[tile] - 1;
 
-				//Finding correct index is needed because of the structure of the tilesets
-				//when using multiple tilesets in the same map.
-				//Should be reworked
 				tilesetIndex = findTilesetIndex(key);
 				if (tilesetIndex != 0) {
 					key -= tileSets[tilesetIndex]->GetFirstId()-1;
@@ -59,20 +60,28 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle)
 				float Ortho_x = tile / map.mWidth;
 				float Ortho_y = tile % map.mHeight;
 
-				//Convert to isometric coordinates
-				//TODO: Make a function for this
+
+
 				x = (Ortho_y - Ortho_x) * (map.mTileWidth / 2);
 				y = ((Ortho_y + Ortho_x) * (map.mTileHeight / 2)) + map.mLayers[layer].mOffsety;
 				
-				//Centering the map in the window
-				const int side = map.mHeight + map.mWidth;
-				float xwid = side * (map.mTileWidth / 2);
-				float yheig = side * (map.mTileHeight / 2);
-				x -= map.mTileWidth/2;
+				x -= map.mTileWidth / 2;
 				y -= map.mTileHeight;
-				y -= yheig / 2;
-				x += cameraRectangle->w / 2;
-				y += cameraRectangle->h / 2;
+
+				x -= cameraRectangle->x;
+				y -= cameraRectangle->y;
+				
+				//Centering the map in the window
+				/*const int side = map.mHeight + map.mWidth;
+				float xwid = side * (map.mTileWidth / 2);
+				float yheig = side * (map.mTileHeight / 2);*/
+				
+				
+				
+				//y -= yheig / 2;
+				
+				//x += cameraRectangle->w / 2;
+				//y += cameraRectangle->h / 2;
 				
 				tileSets[tilesetIndex]->RenderFromSheet(renderHandle, x, y, key, &target, NULL, SDL_FLIP_NONE);
 			}

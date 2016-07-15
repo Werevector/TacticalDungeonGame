@@ -16,8 +16,8 @@ Point2d utility::OrthoToIso(float orthoX, float orthoY)
 Point2d utility::OrthoToIso(Point2d ortho)
 {
 	Point2d iso;
-	iso.x = (ortho.y - ortho.x) * (64 / 2);
-	iso.y = (ortho.y + ortho.x) * (32 / 2);
+	iso.x = (ortho.x - ortho.y) * (64 / 2);
+	iso.y = (ortho.x + ortho.y) * (32 / 2);
 	return iso;
 }
 

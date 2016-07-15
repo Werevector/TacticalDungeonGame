@@ -5,7 +5,10 @@
 
 namespace utility {
 
-	struct Point2d {
+	class Point2d {
+	public:
+		Point2d() { x = 0; y = 0; }
+		Point2d(float nX, float nY) : x(nX), y(nY) {}
 		float x;
 		float y;
 	};

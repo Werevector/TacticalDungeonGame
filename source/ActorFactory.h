@@ -6,6 +6,7 @@
 #include "IsoSpriteRenderComponent.h"
 #include "MovementComponent.h"
 #include "MouseClickControlComponent.h"
+#include "Camera.h"
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -16,8 +17,10 @@ class ActorFactory {
 public:
 
 	ActorFactory();
-	SDL_Renderer* renderHandle;
 	std::shared_ptr<Actor> CreateActorFromFile(std::string filepath);
+	
+	SDL_Renderer* renderHandle;
+	Camera* cameraPtr;
 
 private:
 

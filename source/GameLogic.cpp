@@ -23,9 +23,13 @@ bool GameLogic::InitTestVersion()
 	gameWindow.VersionPrint();
 	
 	actorFactory.renderHandle = gameWindow.renderHandle;
-
+	
 	mGameCamera.mCameraWidth = gameWindow.windowMetrics.w;
 	mGameCamera.mCameraHeight = gameWindow.windowMetrics.h;
+	mGameCamera.mPositionX = - mGameCamera.mCameraWidth / 2;
+	mGameCamera.mPositionY = - mGameCamera.mCameraHeight / 2;
+
+	actorFactory.cameraPtr = &mGameCamera;
 
 	event = new SDL_Event();
 
@@ -33,7 +37,7 @@ bool GameLogic::InitTestVersion()
 	LoadAndAddActor("player.json");
 	//LoadAndAddActor("enemy.json");
 
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "openpath.tmx");
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "debug.tmx");
 	
 	TicksNow = SDL_GetTicks();
 	TicksLast = TicksNow;
@@ -93,8 +97,13 @@ void GameLogic::HandleWindowEvents() {
 		}
 	}
 
+	int cspeed = 10;
 	auto keyboardStates = SDL_GetKeyboardState(NULL);
 	if (keyboardStates[SDL_SCANCODE_ESCAPE]) quit = true;
+	if (keyboardStates[SDL_SCANCODE_UP]) mGameCamera.mPositionY -= cspeed;
+	if (keyboardStates[SDL_SCANCODE_DOWN]) mGameCamera.mPositionY += cspeed;
+	if (keyboardStates[SDL_SCANCODE_LEFT]) mGameCamera.mPositionX -= cspeed;
+	if (keyboardStates[SDL_SCANCODE_RIGHT]) mGameCamera.mPositionX += cspeed;
 
 }
 

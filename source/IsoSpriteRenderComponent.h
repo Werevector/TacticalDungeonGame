@@ -3,6 +3,8 @@
 #include "SpriteSet.h"
 #include "sdl.h"
 #include "ResourcePaths.h"
+#include "Camera.h"
+#include "Utils.h"
 
 class IsoSpriteRenderComponent : public ActorComponent {
 	
@@ -11,22 +13,33 @@ class IsoSpriteRenderComponent : public ActorComponent {
 public:
 
 	IsoSpriteRenderComponent();
+	IsoSpriteRenderComponent(SDL_Renderer* renderHandle);
+	
 	void Init() override;
 	void PostInit() override;
-	IsoSpriteRenderComponent(SDL_Renderer* renderHandle);
+
 	void SetSpriteSheetName(std::string sheetName, std::string imgtype);
+	
 	void Update(float framedelta) override;
+	
 	void SetPos(float, float);
 	void SetKey(int);
+	
+	void SetCamera(Camera* c);
 
 protected:
 
 
 
 private:
+
+	
+
 	SDL_Renderer*	mRenderHandle;
 	SDL_Rect*		mRenderTarget;
 	SpriteSet		mSpriteSet;
+
+	Camera* mCameraPtr;
 
 	float mPosX;
 	float mPosY;
@@ -36,7 +49,5 @@ private:
 	std::string mImagePath;
 	std::string mMetaPath;
 
-	
-	
 
 };

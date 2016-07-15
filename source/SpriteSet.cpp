@@ -28,7 +28,7 @@ bool SpriteSet::LoadSpriteSetFromFile(SDL_Renderer * renderHandle, std::string i
 	return success;
 }
 
-void SpriteSet::RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, int key)
+void SpriteSet::RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, int key, bool center)
 {
 	int cKey = 0;
 	if (key < spriteClips.size()) cKey = key;
@@ -39,6 +39,12 @@ void SpriteSet::RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, in
 	target->y = y;
 	target->w = clip->w;
 	target->h = clip->h;
+
+	if (center)
+	{
+		x -= clip->w / 2;
+		y -= clip->h / 2;
+	}
 
 	//SDL_RenderDrawRect(renderHandle, target);
 	spriteSheet.RenderTexture(renderHandle, x, y, clip, target, NULL, NULL, SDL_FLIP_NONE);

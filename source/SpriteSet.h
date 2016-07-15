@@ -13,7 +13,7 @@ public:
 	SpriteSet();
 	~SpriteSet();
 	bool LoadSpriteSetFromFile(SDL_Renderer* renderHandle, std::string imagePath, std::string metaPath);
-	void RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, int key);
+	void RenderSpriteFromKey(SDL_Renderer* renderHandle, int x, int y, int key, bool center = false);
 	int GetAmountOfClips();
 
 	int mWidthPx;

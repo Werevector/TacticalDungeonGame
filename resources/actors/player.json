@@ -4,13 +4,13 @@
             "component_type": "IsoSpriteRenderComponent",
             "spritesheet": "citizen",
             "imagetype": ".png",
-            "key": 4
+            "key": 0
         },
         "MovementComponent": {
             "component_type": "MovementComponent",
             "position": {
-                "X": 220,
-                "Y": 250
+                "X": 9,
+                "Y": 9
             },
             "velocity": {
                 "X": 0,

@@ -25,6 +25,7 @@ ActorFactory::ActorFactory()
 			isr.SetKey(keyNode.value());
 		}
 		
+		isr.SetCamera(cameraPtr);
 		std::shared_ptr<ActorComponent> isrPointer = std::make_shared<IsoSpriteRenderComponent>(isr);
 		return isrPointer;
 	};
@@ -57,7 +58,6 @@ ActorFactory::ActorFactory()
 			float y = accelerationAttr.value()["Y"];
 			mcc.SetAcceleration(x, y);
 		}
-
 		std::shared_ptr<ActorComponent> mccPointer = std::make_shared<MovementComponent>(mcc);
 		return mccPointer;
 	};

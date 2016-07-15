@@ -1,4 +1,5 @@
 #include "IsoSpriteRenderComponent.h"
+using namespace utility;
 
 IsoSpriteRenderComponent::IsoSpriteRenderComponent()
 {
@@ -27,7 +28,12 @@ void IsoSpriteRenderComponent::SetSpriteSheetName(std::string sheetName, std::st
 
 void IsoSpriteRenderComponent::Update(float framedelta)
 {
-	mSpriteSet.RenderSpriteFromKey(mRenderHandle, mPosX, mPosY, mSpriteKey);
+	//Convert map coordinates to isometric for rendering
+	Point2d iso = OrthoToIso(Point2d(mPosX, mPosY));
+	iso.x -= mCameraPtr->mPositionX;
+	iso.y -= mCameraPtr->mPositionY;
+
+	mSpriteSet.RenderSpriteFromKey(mRenderHandle, iso.x, iso.y, mSpriteKey, true);
 }
 
 void IsoSpriteRenderComponent::SetPos(float x, float y) 
@@ -39,4 +45,9 @@ void IsoSpriteRenderComponent::SetPos(float x, float y)
 void IsoSpriteRenderComponent::SetKey(int newKey)
 {
 	mSpriteKey = newKey;
+}
+
+void IsoSpriteRenderComponent::SetCamera(Camera * c)
+{
+	mCameraPtr = c;
 }
