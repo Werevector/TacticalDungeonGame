@@ -3,9 +3,9 @@
 
 ActorFactory::ActorFactory()
 {
-	auto IsometricSpriteRendererCreator = [=](nlohmann::basic_json<>& component)
+	auto IsoSpriteRenderComponentCreator = [=](nlohmann::basic_json<>& component)
 	{
-		IsometricSpriteRenderer isr(renderHandle);
+		IsoSpriteRenderComponent isr(renderHandle);
 		
 		std::string imageName = component.find("spritesheet").value();
 		std::string imageType = component.find("imagetype").value();
@@ -25,10 +25,10 @@ ActorFactory::ActorFactory()
 			isr.SetKey(keyNode.value());
 		}
 		
-		std::shared_ptr<ActorComponent> isrPointer = std::make_shared<IsometricSpriteRenderer>(isr);
+		std::shared_ptr<ActorComponent> isrPointer = std::make_shared<IsoSpriteRenderComponent>(isr);
 		return isrPointer;
 	};
-	componentCreatorMap.emplace("IsometricSpriteRenderer", IsometricSpriteRendererCreator);
+	componentCreatorMap.emplace("IsoSpriteRenderComponent", IsoSpriteRenderComponentCreator);
 
 	auto MovementComponentCreator = [=](nlohmann::basic_json<>& component)
 	{
@@ -63,14 +63,14 @@ ActorFactory::ActorFactory()
 	};
 	componentCreatorMap.emplace("MovementComponent", MovementComponentCreator);
 
-	auto MouseClickControlCreator = [=](nlohmann::basic_json<>& JSONcomponent)
+	auto MouseClickControlComponentCreator = [=](nlohmann::basic_json<>& JSONcomponent)
 	{
-		MouseClickControl component;
-		std::shared_ptr<ActorComponent> componentPointer = std::make_shared<MouseClickControl>(component);
+		MouseClickControlComponent component;
+		std::shared_ptr<ActorComponent> componentPointer = std::make_shared<MouseClickControlComponent>(component);
 		
 		return componentPointer;
 	};
-	componentCreatorMap.emplace("MouseClickControl", MouseClickControlCreator);
+	componentCreatorMap.emplace("MouseClickControlComponent", MouseClickControlComponentCreator);
 }
 
 std::shared_ptr<Actor> ActorFactory::CreateActorFromFile(std::string filepath)

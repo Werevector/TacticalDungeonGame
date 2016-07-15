@@ -4,12 +4,12 @@
 
 class ClickedOnScreenEvtData : public BaseEventData
 {
-	Point2d mPoint;
+	utility::Point2d mPoint;
 public:
 
 	static const EventType mEventType;
 
-	explicit ClickedOnScreenEvtData(Point2d point) : mPoint(point) {}
+	explicit ClickedOnScreenEvtData(utility::Point2d point) : mPoint(point) {}
 
 	virtual const EventType& VGetEventType(void) const
 	{
@@ -26,6 +26,6 @@ public:
 		return "ClickedOnScreenEvtData";
 	}
 
-	Point2d GetPosition(void) { return mPoint; }
+	utility::Point2d GetPosition(void) { return mPoint; }
 
 };

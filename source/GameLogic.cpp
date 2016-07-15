@@ -1,5 +1,7 @@
 #include "GameLogic.h"
 
+using namespace utility;
+
 bool GameLogic::Init()
 {
 	return false;

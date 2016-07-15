@@ -1,4 +1,4 @@
-#include "EventHandler.h"
+#include "EventManager.h"
 #include "sdl.h"
 
 //-------------------------------------------------------------------------------------

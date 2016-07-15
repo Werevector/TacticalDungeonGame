@@ -4,16 +4,16 @@
 #include "sdl.h"
 #include "ResourcePaths.h"
 
-class IsometricSpriteRenderer : public ActorComponent {
+class IsoSpriteRenderComponent : public ActorComponent {
 	
 	friend class ActorFactory;
 
 public:
 
-	IsometricSpriteRenderer();
+	IsoSpriteRenderComponent();
 	void Init() override;
 	void PostInit() override;
-	IsometricSpriteRenderer(SDL_Renderer* renderHandle);
+	IsoSpriteRenderComponent(SDL_Renderer* renderHandle);
 	void SetSpriteSheetName(std::string sheetName, std::string imgtype);
 	void Update(float framedelta) override;
 	void SetPos(float, float);

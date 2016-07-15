@@ -1,7 +1,7 @@
 {
     "components": {
-        "IsometricSpriteRenderer": {
-            "component_type": "IsometricSpriteRenderer",
+        "IsoSpriteRenderComponent": {
+            "component_type": "IsoSpriteRenderComponent",
             "spritesheet": "citizen",
             "imagetype": ".png",
             "key": 4
@@ -17,8 +17,8 @@
                 "Y": 0
             }
         },
-        "MouseClickControl": {
-          "component_type": "MouseClickControl"
+        "MouseClickControlComponent": {
+          "component_type": "MouseClickControlComponent"
         }
 
     }

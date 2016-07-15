@@ -14,7 +14,7 @@ public:
 	void Init() override;
 	void PostInit() override;
 	void Update(float framedelta) override;
-	Point2d GetPos();
+	utility::Point2d GetPos();
 	void SetPos(float, float);
 	void SetVelocity(float, float);
 	void SetAcceleration(float, float);

@@ -1,6 +1,8 @@
 #include "MovementComponent.h"
-#include "IsometricSpriteRenderer.h"
-#include "EventHandler.h"
+#include "IsoSpriteRenderComponent.h"
+#include "EventManager.h"
+
+using namespace utility;
 
 MovementComponent::MovementComponent()
 {
@@ -32,10 +34,10 @@ void MovementComponent::Update(float framedelta)
 
 	auto ownerStrongPtr = std::shared_ptr<Actor>(ownerPtr);
 
-	auto componentPtr = ownerStrongPtr->FindComponent("IsometricSpriteRenderer");
+	auto componentPtr = ownerStrongPtr->FindComponent("IsoSpriteRenderComponent");
 	if(componentPtr != nullptr)
 	{
-		auto isr = std::static_pointer_cast<IsometricSpriteRenderer>(componentPtr);
+		auto isr = std::static_pointer_cast<IsoSpriteRenderComponent>(componentPtr);
 		isr->SetPos(mPosX, mPosY);
 	}
 	

@@ -1,6 +1,6 @@
 #include "Utils.h"
-
-Point2d OrthoToIso(float orthoX, float orthoY)
+using namespace utility;
+Point2d utility::OrthoToIso(float orthoX, float orthoY)
 {
 	Point2d point;
 
@@ -13,7 +13,7 @@ Point2d OrthoToIso(float orthoX, float orthoY)
 	return point;
 }
 
-Point2d OrthoToIso(Point2d ortho)
+Point2d utility::OrthoToIso(Point2d ortho)
 {
 	Point2d iso;
 	iso.x = (ortho.y - ortho.x) * (64 / 2);
@@ -21,7 +21,7 @@ Point2d OrthoToIso(Point2d ortho)
 	return iso;
 }
 
-Point2d OrthoToIsoOnMap(float orthoX, float orthoY, int layer, GameMap& map)
+Point2d utility::OrthoToIsoOnMap(float orthoX, float orthoY, int layer, GameMap & map)
 {
 	Point2d point;
 

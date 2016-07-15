@@ -3,9 +3,9 @@
 #include "json.hpp"
 #include "sdl.h"
 #include "GameMap.h"
-#include "IsometricSpriteRenderer.h"
+#include "IsoSpriteRenderComponent.h"
 #include "MovementComponent.h"
-#include "MouseClickControl.h"
+#include "MouseClickControlComponent.h"
 #include <iostream>
 #include <fstream>
 #include <map>

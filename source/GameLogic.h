@@ -10,7 +10,7 @@
 #include "FastDelegateBind.h"
 #include "Utils.h"
 #include "ClickedOnScreenEvtData.h"
-#include "EventHandler.h"
+#include "EventManager.h"
 
 class GameLogic {
 

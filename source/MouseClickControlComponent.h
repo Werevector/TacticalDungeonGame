@@ -7,7 +7,7 @@
 #include "ClickedOnScreenEvtData.h"
 #include "MovementComponent.h"
 
-class MouseClickControl : public ActorComponent {
+class MouseClickControlComponent : public ActorComponent {
 public:
 
 	void Init() override;
@@ -19,7 +19,7 @@ protected:
 
 private:
 
-	Point2d mCurrentTarget;
+	utility::Point2d mCurrentTarget;
 	bool arrived = true;
 
 };

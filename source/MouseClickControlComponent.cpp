@@ -1,25 +1,25 @@
-#include "MouseClickControl.h"
-#include "EventHandler.h"
+#include "MouseClickControlComponent.h"
+#include "EventManager.h"
 
-void MouseClickControl::Init()
+void MouseClickControlComponent::Init()
 {
 }
 
-void MouseClickControl::PostInit()
+void MouseClickControlComponent::PostInit()
 {
-	EventListenerDelegate delegateFunction(this, &MouseClickControl::ClickedOnScreenDelegate);
+	EventListenerDelegate delegateFunction(this, &MouseClickControlComponent::ClickedOnScreenDelegate);
 	auto test = IEventManager::Get();
 	IEventManager::Get()->VAddListener(delegateFunction, ClickedOnScreenEvtData::mEventType);
 }
 
-void MouseClickControl::Update(float framedelta)
+void MouseClickControlComponent::Update(float framedelta)
 {
 
 	float vx = 0; float vy = 0;
 	float speed = 100.f;
 	float area = 1.f;
 	bool arrivedX = false; bool arrivedY = false;
-	Point2d currPos;
+	utility::Point2d currPos;
 
 	auto ownerStrongPtr = std::shared_ptr<Actor>(ownerPtr);
 	auto componentPtr = ownerStrongPtr->FindComponent("MovementComponent");
@@ -59,7 +59,7 @@ void MouseClickControl::Update(float framedelta)
 	}
 }
 
-void MouseClickControl::ClickedOnScreenDelegate(IEventDataPtr eventDataPtr)
+void MouseClickControlComponent::ClickedOnScreenDelegate(IEventDataPtr eventDataPtr)
 {
 	auto ownerStrongPtr = std::shared_ptr<Actor>(ownerPtr);
 	std::cout << "ClickedOnScreenEvent Actor id: " << ownerStrongPtr->GetActorId() << "\n\n";
