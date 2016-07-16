@@ -37,12 +37,10 @@ bool GameLogic::InitTestVersion()
 	LoadAndAddActor("player.json");
 	//LoadAndAddActor("enemy.json");
 
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "openpath.tmx");
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "debug.tmx");
 	
 	TicksNow = SDL_GetTicks();
 	TicksLast = TicksNow;
-
-	
 
 	return true;
 }
