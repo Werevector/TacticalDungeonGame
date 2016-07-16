@@ -42,6 +42,7 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle)
 		{
 			//Only render if the tile exists (non zero)
 			if (map.mLayers[layer].mData[tile] != 0) {
+				
 				key = map.mLayers[layer].mData[tile] - 1;
 
 				tilesetIndex = findTilesetIndex(key);
@@ -75,7 +76,6 @@ void GameMap::RenderMap(SDL_Renderer* renderHandle, SDL_Rect* cameraRectangle)
 				/*const int side = map.mHeight + map.mWidth;
 				float xwid = side * (map.mTileWidth / 2);
 				float yheig = side * (map.mTileHeight / 2);*/
-				
 				
 				
 				//y -= yheig / 2;
