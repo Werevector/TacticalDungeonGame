@@ -3,6 +3,8 @@
 #include "GameMap.h"
 #include <memory>
 #include <list>
+#include <vector>
+#include <set>
 
 class ASTSquare {
 public:
@@ -10,9 +12,11 @@ public:
 	ASTSquare(int g) : G(g) {}
 	ASTSquare(int g, int h) : G(g), H(h) {}
 	ASTSquare(int g, int h, int f) : G(g), H(h), F(f) {}
+	ASTSquare(utility::Point2d pos) : mPos(pos) {}
 
-	ASTSquare* parent;
+	ASTSquare* mParent;
 
+	utility::Point2d mPos;
 	int G;
 	int H;
 	int F;

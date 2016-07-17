@@ -2,6 +2,7 @@
 
 #define STRAIGHT_COST 10
 #define DIAG_COST 14
+using namespace utility;
 
 bool AStarPathFinder::FindPath(utility::Point2d position, utility::Point2d destination)
 {
@@ -22,9 +23,20 @@ void AStarPathFinder::SetMap(GameMap * mapPtr)
 bool AStarPathFinder::_FindPath(utility::Point2d position, utility::Point2d destination)
 {
 	bool pathFound = false;
+	std::vector<ASTSquare> openlist;
+	std::vector<ASTSquare> closedlist;
+	std::set<ASTSquare> openset;
+	ASTSquare* current = nullptr;
 
-	std::list<ASTSquare> openlist;
-	std::list<ASTSquare> closedlist;
+	//Ready search
+	ASTSquare A(position);
+	A.G = 0; A.H = 0; A.F = 0;
+	openlist.push_back(A);
+	
+	while (!pathFound)
+	{
+
+	}
 
 
 	
