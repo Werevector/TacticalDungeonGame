@@ -27,12 +27,15 @@ private:
 	std::string loadXMLString(std::string path);
 	void loadTmxMap(std::string path);
 	void loadTileSets(SDL_Renderer* renderHandle, std::vector<TmxMapTileset>& tilesets);
+	std::vector<int> loadWeightLookupTable(std::string path);
 	int findTilesetIndex(int key);
 
 	std::vector<TileSet*> tileSets;
 	std::vector<int> tileSetFirstIdLookup;
 
 	TmxMap map;
+
+	std::vector<std::vector<int>> mWeightLookupTables;
 
 	int mapWidthPx;
 	int mapHeightPx;
@@ -41,9 +44,5 @@ private:
 
 	int isoMapWidthPx;
 	int isoMapHeightPx;
-
-
-
-	//SDLTexture testTex;
 
 };

@@ -136,7 +136,32 @@ void GameMap::loadTileSets(SDL_Renderer* renderHandle, std::vector<TmxMapTileset
 		tileSetFirstIdLookup.push_back(newset->GetFirstId());
 		tileSets.push_back(newset);
 
+		//Load corresponding weight table
+		std::string weightpath = paths::PathTilesets() + tileset.mName + "weight.txt";
+		mWeightLookupTables.push_back(loadWeightLookupTable(weightpath));
+
 	}
+}
+
+std::vector<int> GameMap::loadWeightLookupTable(std::string path)
+{
+	std::vector<int> weightLookupTable;
+	std::fstream weightfile(path, std::ios_base::in);
+
+	if (!weightfile.is_open())
+	{
+		std::cout << "Could not find weight file " << path;
+	}
+	else 
+	{
+		int weight;
+		while (weightfile >> weight)
+		{
+			weightLookupTable.push_back(weight);
+		}
+	}
+
+	return weightLookupTable;
 }
 
 //Find the corresponding tileset to the key
