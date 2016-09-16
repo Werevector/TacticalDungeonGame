@@ -28,11 +28,14 @@ bool AStarPathFinder::_FindPath(utility::Point2d position, utility::Point2d dest
 	std::set<ASTSquare> openset;
 	ASTSquare* current = nullptr;
 
+	std::set<int> glist;
+	std::set<int> hlist;
+	std::set<int> flist;
+
 	//Ready search
 	ASTSquare A(position);
 	A.G = 0; A.H = 0; A.F = 0;
 	openlist.push_back(A);
-	
 	while (!pathFound)
 	{
 
