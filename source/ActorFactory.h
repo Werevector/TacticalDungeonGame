@@ -21,6 +21,7 @@ public:
 	
 	SDL_Renderer* renderHandle;
 	Camera* cameraPtr;
+	GameMap* mGameMapPtr;
 
 private:
 

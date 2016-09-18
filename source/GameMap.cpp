@@ -18,6 +18,7 @@ bool GameMap::LoadMapFromTmx(SDL_Renderer* renderHandle, std::string path)
 	isoMapHeightPx = side * (map.mTileHeight / 2);
 
 	loadTileSets(renderHandle, map.mTilesets);
+	calculateWeightMap();
 
 	return success;
 }
@@ -141,6 +142,30 @@ void GameMap::loadTileSets(SDL_Renderer* renderHandle, std::vector<TmxMapTileset
 		mWeightLookupTables.push_back(loadWeightLookupTable(weightpath));
 
 	}
+}
+
+void GameMap::calculateWeightMap()
+{
+	using namespace std;
+	for (int layer = 0; layer < map.mLayers.size(); ++layer)
+	{
+		vector<int> weightlayer;
+		for (int tile = 0; tile < map.mLayers[layer].mData.size(); ++tile)
+		{
+			int key = map.mLayers[layer].mData[tile];
+			int tilesetIndex = findTilesetIndex(map.mLayers[layer].mData[tile]);
+			
+			if (tilesetIndex != 0) {
+				key -= tileSets[tilesetIndex]->GetFirstId() - 1;
+			}
+			if (key != 0)
+				weightlayer.push_back(mWeightLookupTables[tilesetIndex][key - 1]);
+			else
+				weightlayer.push_back(1);
+		}
+		mWeightMap.push_back(weightlayer);
+	}
+		
 }
 
 std::vector<int> GameMap::loadWeightLookupTable(std::string path)

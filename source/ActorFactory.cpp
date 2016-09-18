@@ -67,6 +67,7 @@ ActorFactory::ActorFactory()
 	{
 		MouseClickControlComponent component;
 		component.SetCamera(cameraPtr);
+		component.mGameMapPtr = mGameMapPtr;
 		std::shared_ptr<ActorComponent> componentPointer = std::make_shared<MouseClickControlComponent>(component);
 		return componentPointer;
 	};

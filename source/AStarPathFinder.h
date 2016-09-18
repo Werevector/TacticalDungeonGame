@@ -30,6 +30,7 @@ public:
 	AStarPathFinder(GameMap* map) { SetMap(map); }
 	
 	bool FindPath(utility::Point2d position ,utility::Point2d destination);
+	void PrintPath();
 	void SetMap(GameMap* mapPtr);
 
 private:
@@ -39,6 +40,7 @@ private:
 	void AddAdjacent(std::list<ASTSquare>& sqList, utility::Point2d point);
 	GameMap* mMapPtr;
 	utility::Point2d mCurrentDestination;
+	std::vector<int> pathToDestination;
 
 
 };

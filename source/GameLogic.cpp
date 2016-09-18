@@ -21,7 +21,10 @@ bool GameLogic::InitTestVersion()
 	gameWindow.flags = SDL_WINDOW_SHOWN;
 	gameWindow.CreateGameWindowAndRenderer();
 	gameWindow.VersionPrint();
-	
+
+	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "debug.tmx");
+	actorFactory.mGameMapPtr = &gameMap;
+
 	actorFactory.renderHandle = gameWindow.renderHandle;
 	
 	mGameCamera.mCameraWidth = gameWindow.windowMetrics.w;
@@ -37,8 +40,10 @@ bool GameLogic::InitTestVersion()
 	LoadAndAddActor("player.json");
 	//LoadAndAddActor("enemy.json");
 
-	gameMap.LoadMapFromTmx(gameWindow.renderHandle, paths::PathMaps() + "debug.tmx");
 	
+	
+	
+
 	TicksNow = SDL_GetTicks();
 	TicksLast = TicksNow;
 

@@ -18,6 +18,11 @@ namespace utility {
 	Point2d OrthoToIsoOnMap(float orthoX, float orthoY, int layer, GameMap& map);
 
 	Point2d IsoToOrtho(Point2d iso);
+
+	int PositionTo1D(Point2d pos, int width);
+	Point2d IndexToPosition(int index, int width, int height);
+
+	int FindLowestValueIndex(std::vector<int> myarr);
 }
 
 	

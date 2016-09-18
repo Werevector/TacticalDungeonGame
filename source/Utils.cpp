@@ -44,3 +44,25 @@ Point2d utility::IsoToOrtho(Point2d iso)
 	return ortho;
 
 }
+
+int utility::PositionTo1D(Point2d pos, int width)
+{
+	return width * pos.y + pos.x;
+}
+
+Point2d utility::IndexToPosition(int index, int width, int height)
+{
+	//return Point2d(index / width, index % height);
+	return Point2d(index % height, index / width);
+}
+
+int utility::FindLowestValueIndex(std::vector<int> myarr)
+{
+	int index = 0;
+	for (int i = 1; i < myarr.size(); ++i)
+	{
+		if (myarr[i] < myarr[index])
+			index = i;
+	}
+	return index;
+}
